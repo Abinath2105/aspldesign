@@ -1,49 +1,425 @@
-import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect, useRef, useCallback } from 'react';
+// import { 
+//   Phone, 
+//   MessageCircle, 
+//   ArrowRight,
+//   Sparkles,
+//   X,
+//   ChevronDown,
+//   Star,
+//   Zap,
+//   Award,
+//   Users,
+//   Headphones,
+//   ArrowUpRight
+// } from 'lucide-react';
+// import './Navbar.css';
+// import logo from '../img/logo-dark.png';
+
+// const Navbar = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [scrolled, setScrolled] = useState(false);
+//   const [activeLink, setActiveLink] = useState('');
+//   const [hoveredService, setHoveredService] = useState(null);
+//   const [showServices, setShowServices] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const navRef = useRef(null);
+//   const dropdownRef = useRef(null);
+//   const servicesTimeout = useRef(null);
+//   const rafRef = useRef(null);
+
+//   useEffect(() => {
+//     let ticking = false;
+//     const handleScroll = () => {
+//       if (!ticking) {
+//         rafRef.current = requestAnimationFrame(() => {
+//           setScrolled(window.scrollY > 20);
+//           const sections = ['services', 'strengths', 'partners', 'contact'];
+//           for (const section of sections.reverse()) {
+//             const element = document.getElementById(section);
+//             if (element && window.scrollY >= element.offsetTop - 400) {
+//               setActiveLink(section);
+//               break;
+//             }
+//           }
+//           ticking = false;
+//         });
+//         ticking = true;
+//       }
+//     };
+//     window.addEventListener('scroll', handleScroll, { passive: true });
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     document.body.style.overflow = isOpen ? 'hidden' : '';
+//     return () => { document.body.style.overflow = ''; };
+//   }, [isOpen]);
+
+//   const handleDropdownMouseMove = useCallback((e) => {
+//     if (dropdownRef.current) {
+//       const rect = dropdownRef.current.getBoundingClientRect();
+//       setMousePos({
+//         x: (e.clientX - rect.left) / rect.width,
+//         y: (e.clientY - rect.top) / rect.height,
+//       });
+//     }
+//   }, []);
+
+//   // Simplified services — just names and colors
+//   const services = [
+//     { 
+//       name: 'Business',
+//       color: '#4F46E5',
+//       gradient: 'linear-gradient(135deg, #4F46E5, #A78BFA)',
+//       items: ['Web & Apps', 'Marketing', 'UI/UX', 'Compliance', 'Staffing', 'Print']
+//     },
+//     { 
+//       name: 'Hospitality',
+//       color: '#EA580C',
+//       gradient: 'linear-gradient(135deg, #EA580C, #FDBA74)',
+//       items: ['Dining', 'Corporate', 'Weddings', 'Management']
+//     },
+//     { 
+//       name: 'Technology',
+//       color: '#059669',
+//       gradient: 'linear-gradient(135deg, #059669, #6EE7B7)',
+//       items: ['Refurbished', 'Enterprise', 'Support', 'Education']
+//     },
+//     { 
+//       name: 'Training',
+//       color: '#0284C7',
+//       gradient: 'linear-gradient(135deg, #0284C7, #7DD3FC)',
+//       items: ['Marketing', 'Development', 'Design', 'Soft Skills']
+//     },
+//     { 
+//       name: 'Creative',
+//       color: '#DB2777',
+//       gradient: 'linear-gradient(135deg, #DB2777, #F9A8D4)',
+//       items: ['Studio', 'Production', 'Editing', 'Partnership']
+//     },
+//   ];
+
+//   const navLinks = [
+//     { name: 'Strengths', href: '#strengths', icon: Award },
+//     { name: 'Partners', href: '#partners', icon: Users },
+//   ];
+
+//   const whatsappNumber = "919843406360";
+//   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi ASPL Team! I'd love to discuss a project.")}`;
+
+//   const handleServicesEnter = () => {
+//     clearTimeout(servicesTimeout.current);
+//     setShowServices(true);
+//   };
+
+//   const handleServicesLeave = () => {
+//     servicesTimeout.current = setTimeout(() => {
+//       setShowServices(false);
+//     }, 200);
+//   };
+
+//   return (
+//     <>
+//       <header className={`aether-nav ${scrolled ? 'aether-nav--scrolled' : ''}`} ref={navRef}>
+        
+//         {/* Floating orbs */}
+//         <div className="aether-nav__orb aether-nav__orb--1" />
+//         <div className="aether-nav__orb aether-nav__orb--2" />
+        
+//         <div className="aether-nav__container">
+          
+//           {/* ========== LOGO ========== */}
+//           <a href="#" className="aether-nav__logo" aria-label="ASPL Home">
+//             <img src={logo} alt="ASPL" className="aether-nav__logo-img" />
+//             <div className="aether-nav__logo-dot" />
+//           </a>
+
+//           {/* ========== NAVIGATION ========== */}
+//           <nav className="aether-nav__nav">
+            
+//             {/* Services Trigger */}
+//             <div 
+//               className="aether-nav__services-wrapper"
+//               onMouseEnter={handleServicesEnter}
+//               onMouseLeave={handleServicesLeave}
+//             >
+//               <button 
+//                 className={`aether-nav__services-trigger ${showServices ? 'aether-nav__services-trigger--active' : ''}`}
+//                 onClick={() => setShowServices(!showServices)}
+//                 aria-expanded={showServices}
+//               >
+//                 <Sparkles size={14} className="aether-nav__sparkle" />
+//                 <span>Services</span>
+//                 <ChevronDown size={13} className={`aether-nav__chevron ${showServices ? 'aether-nav__chevron--open' : ''}`} />
+//               </button>
+
+//               {/* ========== INNOVATIVE DROPDOWN ========== */}
+//               <div 
+//                 className={`aether-dropdown ${showServices ? 'aether-dropdown--open' : ''}`}
+//                 ref={dropdownRef}
+//                 onMouseMove={handleDropdownMouseMove}
+//                 style={{ '--mouse-x': mousePos.x, '--mouse-y': mousePos.y }}
+//               >
+//                 {/* Cursor glow */}
+//                 <div 
+//                   className="aether-dropdown__cursor-glow"
+//                   style={{
+//                     left: `${mousePos.x * 100}%`,
+//                     top: `${mousePos.y * 100}%`,
+//                   }}
+//                 />
+
+//                 <div className="aether-dropdown__inner">
+                  
+//                   {/* Visual service cards — one per category */}
+//                   <div className="aether-dropdown__grid">
+//                     {services.map((service, i) => {
+//                       const isHovered = hoveredService === i;
+//                       return (
+//                         <a
+//                           key={i}
+//                           href="#services"
+//                           className={`aether-dropdown__card ${isHovered ? 'aether-dropdown__card--hovered' : ''}`}
+//                           onMouseEnter={() => setHoveredService(i)}
+//                           onMouseLeave={() => setHoveredService(null)}
+//                           onClick={() => setShowServices(false)}
+//                           style={{
+//                             '--card-color': service.color,
+//                             '--card-gradient': service.gradient,
+//                           }}
+//                         >
+//                           {/* Background gradient reveal */}
+//                           <div className="aether-dropdown__card-bg" />
+                          
+//                           {/* Service name */}
+//                           <h4 className="aether-dropdown__card-title">
+//                             {service.name}
+//                           </h4>
+                          
+//                           {/* Mini tag cloud */}
+//                           <div className="aether-dropdown__card-tags">
+//                             {service.items.slice(0, 4).map((item, j) => (
+//                               <span 
+//                                 key={j} 
+//                                 className="aether-dropdown__card-tag"
+//                                 style={{ 
+//                                   '--tag-delay': `${j * 0.05}s`
+//                                 }}
+//                               >
+//                                 {item}
+//                               </span>
+//                             ))}
+//                           </div>
+                          
+//                           {/* Hover indicator */}
+//                           <span className="aether-dropdown__card-indicator" style={{ color: service.color }}>
+//                             <ArrowUpRight size={14} strokeWidth={2} />
+//                           </span>
+//                         </a>
+//                       );
+//                     })}
+//                   </div>
+
+//                   {/* Trust pulse */}
+//                   <div className="aether-dropdown__trust">
+//                     <div className="aether-dropdown__trust-item">
+//                       <Star size={12} fill="#F59E0B" color="#F59E0B" />
+//                       <span>4.9 Rating</span>
+//                     </div>
+//                     <div className="aether-dropdown__trust-item">
+//                       <Zap size={12} color="#4F46E5" />
+//                       <span>200+ Projects</span>
+//                     </div>
+//                     <div className="aether-dropdown__trust-item">
+//                       <Users size={12} color="#059669" />
+//                       <span>50+ Experts</span>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Quick Links */}
+//             {navLinks.map((link) => (
+//               <a
+//                 key={link.name}
+//                 href={link.href}
+//                 className={`aether-nav__link ${activeLink === link.href.replace('#', '') ? 'aether-nav__link--active' : ''}`}
+//               >
+//                 <link.icon size={13} />
+//                 <span>{link.name}</span>
+//               </a>
+//             ))}
+//           </nav>
+
+//           {/* ========== ACTIONS ========== */}
+//           <div className="aether-nav__actions">
+//             <a href="tel:9843406360" className="aether-nav__icon" title="Call">
+//               <Phone size={16} strokeWidth={1.8} />
+//             </a>
+//             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="aether-nav__icon aether-nav__icon--whatsapp" title="WhatsApp">
+//               <MessageCircle size={16} strokeWidth={1.8} />
+//             </a>
+//             <a href="#contact" className="aether-nav__cta">
+//               <span>Contact</span>
+//               <ArrowRight size={14} strokeWidth={2} />
+//             </a>
+//             <button 
+//               className={`aether-nav__burger ${isOpen ? 'aether-nav__burger--open' : ''}`}
+//               onClick={() => setIsOpen(!isOpen)}
+//               aria-label="Menu"
+//             >
+//               <span /><span /><span />
+//             </button>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* ========== MOBILE MENU ========== */}
+//       <div className={`aether-mobile ${isOpen ? 'aether-mobile--open' : ''}`}>
+//         <div className="aether-mobile__backdrop" onClick={() => setIsOpen(false)} />
+//         <div className="aether-mobile__panel">
+//           <div className="aether-mobile__header">
+//             <img src={logo} alt="ASPL" className="aether-mobile__logo" />
+//             <button className="aether-mobile__close" onClick={() => setIsOpen(false)}>
+//               <X size={20} strokeWidth={1.8} />
+//             </button>
+//           </div>
+
+//           <div className="aether-mobile__section">
+//             <span className="aether-mobile__label">Services</span>
+//             {services.map((service, i) => (
+//               <a
+//                 key={i}
+//                 href="#services"
+//                 className="aether-mobile__card"
+//                 onClick={() => setIsOpen(false)}
+//                 style={{ animationDelay: `${i * 0.05}s` }}
+//               >
+//                 <span className="aether-mobile__card-color" style={{ background: service.color }} />
+//                 <span className="aether-mobile__card-name">{service.name}</span>
+//                 <span className="aether-mobile__card-count">{service.items.length} services</span>
+//               </a>
+//             ))}
+//           </div>
+
+//           <div className="aether-mobile__section">
+//             <span className="aether-mobile__label">Navigate</span>
+//             {navLinks.map((link, i) => (
+//               <a key={i} href={link.href} className="aether-mobile__link" onClick={() => setIsOpen(false)} style={{ animationDelay: `${(i + 5) * 0.05}s` }}>
+//                 <link.icon size={15} strokeWidth={1.8} />
+//                 <span>{link.name}</span>
+//               </a>
+//             ))}
+//             <a href="#contact" className="aether-mobile__link aether-mobile__link--accent" onClick={() => setIsOpen(false)} style={{ animationDelay: '0.4s' }}>
+//               <Headphones size={15} strokeWidth={1.8} />
+//               <span>Contact</span>
+//             </a>
+//           </div>
+
+//           <div className="aether-mobile__actions">
+//             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="aether-mobile__action aether-mobile__action--whatsapp">
+//               <MessageCircle size={18} />
+//               <div><span>WhatsApp</span><small>Instant reply</small></div>
+//             </a>
+//             <a href="tel:9843406360" className="aether-mobile__action aether-mobile__action--call">
+//               <Phone size={18} />
+//               <div><span>9843406360</span><small>Mon–Sat, 9AM–7PM</small></div>
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Phone, 
   MessageCircle, 
   ArrowRight,
   Sparkles,
   X,
-  Code2,
-  UtensilsCrossed,
-  Laptop,
-  GraduationCap,
-  Camera,
-  ChevronRight,
   ChevronDown,
   Star,
   Zap,
   Award,
   Users,
-  Headphones
+  Headphones,
+  ArrowUpRight,
+  Briefcase,
+  Info
 } from 'lucide-react';
 import './Navbar.css';
-import logo from '../img/logo.jpeg';
+import logo from '../img/logo-dark.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [activeLink, setActiveLink] = useState('');
   const [hoveredService, setHoveredService] = useState(null);
   const [showServices, setShowServices] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const navRef = useRef(null);
+  const dropdownRef = useRef(null);
   const servicesTimeout = useRef(null);
+  const lastScrollY = useRef(0);
+  const rafRef = useRef(null);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-      const sections = ['services', 'strengths', 'partners', 'contact'];
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element && window.scrollY >= element.offsetTop - 300) {
-          setActiveLink(section);
-          break;
-        }
+      if (!ticking) {
+        rafRef.current = requestAnimationFrame(() => {
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll > lastScrollY.current && currentScroll > 400) {
+            setHidden(true);
+          } else {
+            setHidden(false);
+          }
+          lastScrollY.current = currentScroll;
+          
+          setScrolled(currentScroll > 60);
+          
+          const sections = ['services', 'strengths', 'partners', 'contact', 'about', 'careers'];
+          for (const section of sections.reverse()) {
+            const element = document.getElementById(section);
+            if (element && currentScroll >= element.offsetTop - 500) {
+              setActiveLink(section);
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -51,56 +427,58 @@ const Navbar = () => {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
+  const handleDropdownMouseMove = useCallback((e) => {
+    if (dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      setMousePos({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      });
+    }
+  }, []);
+
   const services = [
     { 
-      name: 'Business Services', 
-      icon: Code2, 
-      color: '#6366F1', 
-      bgLight: 'rgba(99,102,241,0.12)',
-      desc: 'Web development, digital marketing, UI/UX design & branding solutions.',
-      features: ['Web & Apps', 'SEO & Marketing', 'UI/UX Design', 'Cloud']
+      name: 'Business',
+      color: '#4F46E5',
+      gradient: 'linear-gradient(135deg, #4F46E5, #A78BFA)',
+      items: ['Web & Apps', 'Marketing', 'UI/UX', 'Compliance', 'Staffing', 'Print']
     },
     { 
-      name: 'Hospitality & Events', 
-      icon: UtensilsCrossed, 
-      color: '#F59E0B', 
-      bgLight: 'rgba(245,158,11,0.12)',
-      desc: 'Corporate events, weddings, catering & end-to-end event management.',
-      features: ['Corporate', 'Weddings', 'Catering', 'Planning']
+      name: 'Hospitality',
+      color: '#EA580C',
+      gradient: 'linear-gradient(135deg, #EA580C, #FDBA74)',
+      items: ['Dining', 'Corporate', 'Weddings', 'Management']
     },
     { 
-      name: 'Laptop Solutions', 
-      icon: Laptop, 
-      color: '#10B981', 
-      bgLight: 'rgba(16,185,129,0.12)',
-      desc: 'Premium refurbished laptops with warranty for businesses & students.',
-      features: ['Refurbished', 'Bulk Orders', 'Warranty', 'Support']
+      name: 'Technology',
+      color: '#059669',
+      gradient: 'linear-gradient(135deg, #059669, #6EE7B7)',
+      items: ['Refurbished', 'Enterprise', 'Support', 'Education']
     },
     { 
-      name: 'Training & Skills', 
-      icon: GraduationCap, 
-      color: '#0EA5E9', 
-      bgLight: 'rgba(14,165,233,0.12)',
-      desc: 'Professional courses with live projects, mentorship & placement support.',
-      features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement']
+      name: 'Training',
+      color: '#0284C7',
+      gradient: 'linear-gradient(135deg, #0284C7, #7DD3FC)',
+      items: ['Marketing', 'Development', 'Design', 'Soft Skills']
     },
     { 
-      name: 'Creator Studio', 
-      icon: Camera, 
-      color: '#EC4899', 
-      bgLight: 'rgba(236,72,153,0.12)',
-      desc: 'Podcast recording, video production, editing & creative direction.',
-      features: ['Podcast', 'Video', 'Editing', 'Production']
+      name: 'Creative',
+      color: '#DB2777',
+      gradient: 'linear-gradient(135deg, #DB2777, #F9A8D4)',
+      items: ['Studio', 'Production', 'Editing', 'Partnership']
     },
   ];
 
   const navLinks = [
+    { name: 'About', href: '#about', icon: Info },
+    { name: 'Careers', href: '#careers', icon: Briefcase },
     { name: 'Strengths', href: '#strengths', icon: Award },
     { name: 'Partners', href: '#partners', icon: Users },
   ];
 
   const whatsappNumber = "919843406360";
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi ASPL Team! Let's discuss a project.")}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi ASPL Team! I'd love to discuss a project.")}`;
 
   const handleServicesEnter = () => {
     clearTimeout(servicesTimeout.current);
@@ -110,253 +488,252 @@ const Navbar = () => {
   const handleServicesLeave = () => {
     servicesTimeout.current = setTimeout(() => {
       setShowServices(false);
-    }, 300);
+    }, 200);
   };
 
   return (
     <>
-      <nav className={`nav-peak ${scrolled ? 'nav-peak--scrolled' : ''}`} ref={navRef}>
-        <div className="nav-peak__container">
+      <header 
+        className={`aether-nav ${scrolled ? 'aether-nav--scrolled' : ''} ${hidden ? 'aether-nav--hidden' : ''}`} 
+        ref={navRef}
+      >
+        
+        {/* Floating orbs — visible only when scrolled */}
+        <div className="aether-nav__orb aether-nav__orb--1" />
+        <div className="aether-nav__orb aether-nav__orb--2" />
+        
+        <div className="aether-nav__container">
           
-          {/* ============ LOGO ONLY ============ */}
-          <a 
-            href="#" 
-            className="nav-peak__logo"
-            aria-label="ASPL Home"
-          >
-            <div className="nav-peak__logo-wrapper">
-              <img src={logo} alt="ASPL" className="nav-peak__logo-img" />
-              <div className="nav-peak__logo-glow" />
-            </div>
-            <div className="nav-peak__logo-dot" />
+          {/* ========== LOGO ========== */}
+          <a href="#" className="aether-nav__logo" aria-label="ASPL Home">
+            <img src={logo} alt="ASPL" className="aether-nav__logo-img" />
+            <div className="aether-nav__logo-dot" />
           </a>
 
-          {/* ============ CENTER NAVIGATION ============ */}
-          <div className="nav-peak__nav">
+          {/* ========== NAVIGATION ========== */}
+          <nav className="aether-nav__nav">
             
             {/* Services Dropdown Trigger */}
             <div 
-              className="nav-peak__services-wrapper"
+              className="aether-nav__services-wrapper"
               onMouseEnter={handleServicesEnter}
               onMouseLeave={handleServicesLeave}
             >
               <button 
-                className={`nav-peak__services-btn ${showServices ? 'nav-peak__services-btn--active' : ''}`}
+                className={`aether-nav__services-trigger ${showServices ? 'aether-nav__services-trigger--active' : ''}`}
                 onClick={() => setShowServices(!showServices)}
                 aria-expanded={showServices}
               >
-                <Sparkles size={14} className="nav-peak__services-icon" />
+                <Sparkles size={14} className="aether-nav__sparkle" />
                 <span>Services</span>
-                <ChevronDown size={14} className={`nav-peak__services-chevron ${showServices ? 'nav-peak__services-chevron--open' : ''}`} />
+                <ChevronDown size={13} className={`aether-nav__chevron ${showServices ? 'aether-nav__chevron--open' : ''}`} />
               </button>
 
-              {/* ============ APPLE-STYLE DROPDOWN PANEL ============ */}
-              <div className={`nav-peak__dropdown ${showServices ? 'nav-peak__dropdown--open' : ''}`}>
-                <div className="nav-peak__dropdown-inner">
+              {/* ========== MEGAMENU DROPDOWN ========== */}
+              <div 
+                className={`aether-dropdown ${showServices ? 'aether-dropdown--open' : ''}`}
+                ref={dropdownRef}
+                onMouseMove={handleDropdownMouseMove}
+                style={{ '--mouse-x': mousePos.x, '--mouse-y': mousePos.y }}
+              >
+                {/* Cursor glow */}
+                <div 
+                  className="aether-dropdown__cursor-glow"
+                  style={{
+                    left: `${mousePos.x * 100}%`,
+                    top: `${mousePos.y * 100}%`,
+                  }}
+                />
+
+                <div className="aether-dropdown__inner">
                   
-                  {/* Dropdown Header */}
-                  <div className="nav-peak__dropdown-header">
+                  {/* Header */}
+                  <div className="aether-dropdown__header">
                     <div>
-                      <h3>Our Services</h3>
-                      <p>Five integrated verticals designed to scale your growth.</p>
+                      <span className="aether-dropdown__kicker">Our Ecosystem</span>
+                      <h3 className="aether-dropdown__title">What can we build for you?</h3>
                     </div>
-                    <a href="#services" className="nav-peak__dropdown-header-link" onClick={() => setShowServices(false)}>
-                      View All <ArrowRight size={13} />
+                    <a href="#services" className="aether-dropdown__view-all" onClick={() => setShowServices(false)}>
+                      View all services <ArrowUpRight size={13} />
                     </a>
                   </div>
 
-                  {/* Services List */}
-                  <div className="nav-peak__dropdown-list">
-                    {services.map((service, i) => (
-                      <a
-                        key={service.name}
-                        href="#services"
-                        className={`nav-peak__dropdown-item ${hoveredService === i ? 'nav-peak__dropdown-item--hovered' : ''}`}
-                        onMouseEnter={() => setHoveredService(i)}
-                        onMouseLeave={() => setHoveredService(null)}
-                        onClick={() => setShowServices(false)}
-                        style={{ '--item-color': service.color, '--item-bg': service.bgLight }}
-                      >
-                        <div className="nav-peak__dropdown-item-icon" style={{ background: service.bgLight, color: service.color }}>
-                          <service.icon size={18} />
-                        </div>
-                        
-                        <div className="nav-peak__dropdown-item-content">
-                          <span className="nav-peak__dropdown-item-name">{service.name}</span>
-                          <span className="nav-peak__dropdown-item-desc">{service.desc}</span>
+                  {/* Service cards */}
+                  <div className="aether-dropdown__grid">
+                    {services.map((service, i) => {
+                      const isHovered = hoveredService === i;
+                      return (
+                        <a
+                          key={i}
+                          href="#services"
+                          className={`aether-dropdown__card ${isHovered ? 'aether-dropdown__card--hovered' : ''}`}
+                          onMouseEnter={() => setHoveredService(i)}
+                          onMouseLeave={() => setHoveredService(null)}
+                          onClick={() => setShowServices(false)}
+                          style={{
+                            '--card-color': service.color,
+                            '--card-gradient': service.gradient,
+                          }}
+                        >
+                          <div className="aether-dropdown__card-bg" />
                           
-                          <div className="nav-peak__dropdown-item-tags">
-                            {service.features.map((feat) => (
-                              <span key={feat} className="nav-peak__dropdown-item-tag" style={{ color: service.color, background: service.bgLight }}>
-                                {feat}
+                          {/* <div className="aether-dropdown__card-icon" style={{ color: service.color }}>
+                            <Sparkles size={16} />
+                          </div> */}
+                          
+                          <h4 className="aether-dropdown__card-title" style={{ color: service.color }}>
+                            {service.name}
+                          </h4>
+                          
+                          <div className="aether-dropdown__card-tags">
+                            {service.items.slice(0, 4).map((item, j) => (
+                              <span 
+                                key={j} 
+                                className="aether-dropdown__card-tag"
+                                style={{ '--tag-delay': `${j * 0.04}s` }}
+                              >
+                                {item}
                               </span>
                             ))}
                           </div>
-                        </div>
-
-                        <ChevronRight size={16} className="nav-peak__dropdown-item-chevron" style={{ color: service.color }} />
-                      </a>
-                    ))}
+                          
+                          <span className="aether-dropdown__card-arrow" style={{ color: service.color }}>
+                            <ArrowUpRight size={14} strokeWidth={2} />
+                          </span>
+                        </a>
+                      );
+                    })}
                   </div>
 
-                  {/* Dropdown Footer */}
-                  <div className="nav-peak__dropdown-footer">
-                    <div className="nav-peak__dropdown-stat">
+                  {/* Trust bar */}
+                  {/* <div className="aether-dropdown__trust">
+                    <div className="aether-dropdown__trust-stat">
                       <Star size={13} fill="#F59E0B" color="#F59E0B" />
                       <span>4.9/5 Client Rating</span>
                     </div>
-                    <div className="nav-peak__dropdown-stat">
-                      <Zap size={13} color="#6366F1" />
-                      <span>200+ Projects Delivered</span>
+                    <div className="aether-dropdown__trust-divider" />
+                    <div className="aether-dropdown__trust-stat">
+                      <Zap size={13} color="#4F46E5" />
+                      <span>200+ Projects</span>
                     </div>
-                    <div className="nav-peak__dropdown-stat">
-                      <Users size={13} color="#10B981" />
+                    <div className="aether-dropdown__trust-divider" />
+                    <div className="aether-dropdown__trust-stat">
+                      <Users size={13} color="#059669" />
                       <span>50+ Team Experts</span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Standard Nav Links */}
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`nav-peak__link ${activeLink === link.href.replace('#', '') ? 'nav-peak__link--active' : ''}`}
+                className={`aether-nav__link ${activeLink === link.href.replace('#', '') ? 'aether-nav__link--active' : ''}`}
               >
-                {link.name}
+                <link.icon size={14} strokeWidth={1.8} />
+                <span>{link.name}</span>
               </a>
             ))}
-          </div>
+          </nav>
 
-          {/* ============ RIGHT ACTIONS ============ */}
-          <div className="nav-peak__actions">
-            
-            {/* Call Button */}
-            <a href="tel:9843406360" className="nav-peak__action-btn nav-peak__action-btn--call" title="Call us">
-              <Phone size={16} />
-              <span>Call</span>
+          {/* ========== ACTIONS ========== */}
+          <div className="aether-nav__actions">
+            <a href="tel:9843406360" className="aether-nav__icon" title="Call us">
+              <Phone size={17} strokeWidth={1.8} />
             </a>
-
-            {/* WhatsApp Button */}
-            <a 
-              href={whatsappLink} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="nav-peak__action-btn nav-peak__action-btn--whatsapp" 
-              title="Chat on WhatsApp"
-            >
-              <MessageCircle size={16} />
-              <span>Chat</span>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="aether-nav__icon aether-nav__icon--whatsapp" title="WhatsApp">
+              <MessageCircle size={17} strokeWidth={1.8} />
             </a>
-
-            {/* Contact CTA */}
-            <a href="#contact" className="nav-peak__cta">
-              <span>Contact Us</span>
-              <ArrowRight size={14} />
+            <a href="#contact" className="aether-nav__cta">
+              <span>Contact</span>
+              <ArrowRight size={15} strokeWidth={2} />
+              <span className="aether-nav__cta-shimmer" />
             </a>
-
-            {/* Mobile Burger */}
             <button 
-              className={`nav-peak__burger ${isOpen ? 'nav-peak__burger--open' : ''}`}
+              className={`aether-nav__burger ${isOpen ? 'aether-nav__burger--open' : ''}`}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-label="Menu"
             >
-              <span className="nav-peak__burger-line nav-peak__burger-line--top" />
-              <span className="nav-peak__burger-line nav-peak__burger-line--bottom" />
+              <span /><span /><span />
             </button>
           </div>
         </div>
 
-        {/* Bottom Gradient Bar */}
-        <div className="nav-peak__active-bar" />
-      </nav>
+        {/* Bottom edge */}
+        <div className="aether-nav__edge" />
+      </header>
 
-      {/* ============ MOBILE MENU ============ */}
-      <div className={`nav-peak-mobile ${isOpen ? 'nav-peak-mobile--open' : ''}`}>
-        <div className="nav-peak-mobile__backdrop" onClick={() => setIsOpen(false)} />
-        
-        <div className="nav-peak-mobile__panel">
-          
-          {/* Header */}
-          <div className="nav-peak-mobile__header">
-            <div className="nav-peak-mobile__brand">
-              <img src={logo} alt="ASPL" className="nav-peak-mobile__logo" />
-            </div>
-            <button className="nav-peak-mobile__close" onClick={() => setIsOpen(false)}>
-              <X size={20} />
+      {/* ========== MOBILE MENU ========== */}
+      <div className={`aether-mobile ${isOpen ? 'aether-mobile--open' : ''}`}>
+        <div className="aether-mobile__backdrop" onClick={() => setIsOpen(false)} />
+        <div className="aether-mobile__panel">
+          <div className="aether-mobile__header">
+            <img src={logo} alt="ASPL" className="aether-mobile__logo" />
+            <button className="aether-mobile__close" onClick={() => setIsOpen(false)}>
+              <X size={20} strokeWidth={1.8} />
             </button>
           </div>
 
-          {/* Services Section */}
-          <div className="nav-peak-mobile__section">
-            <span className="nav-peak-mobile__section-title">Services</span>
-            <div className="nav-peak-mobile__services">
-              {services.map((service, i) => (
-                <a
-                  key={service.name}
-                  href="#services"
-                  className="nav-peak-mobile__service"
-                  onClick={() => setIsOpen(false)}
-                  style={{ animationDelay: `${i * 0.07}s` }}
-                >
-                  <div className="nav-peak-mobile__service-icon" style={{ background: service.bgLight, color: service.color }}>
-                    <service.icon size={18} />
-                  </div>
-                  <div className="nav-peak-mobile__service-info">
-                    <span>{service.name}</span>
-                    <span>{service.features.slice(0, 2).join(' • ')}</span>
-                  </div>
-                  <ChevronRight size={16} color={service.color} />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Links Section */}
-          <div className="nav-peak-mobile__section">
-            <span className="nav-peak-mobile__section-title">Quick Links</span>
-            {navLinks.map((link, i) => (
+          {/* Services */}
+          <div className="aether-mobile__section">
+            <span className="aether-mobile__label">Services</span>
+            {services.map((service, i) => (
               <a
-                key={link.name}
-                href={link.href}
-                className="nav-peak-mobile__link"
+                key={i}
+                href="#services"
+                className="aether-mobile__card"
                 onClick={() => setIsOpen(false)}
-                style={{ animationDelay: `${(i + 5) * 0.07}s` }}
+                style={{ animationDelay: `${i * 0.05}s` }}
               >
-                <link.icon size={16} />
-                <span>{link.name}</span>
-                <ArrowRight size={14} />
+                <span className="aether-mobile__card-dot" style={{ background: service.color }} />
+                <span className="aether-mobile__card-name">{service.name}</span>
+                <span className="aether-mobile__card-arrow">
+                  <ArrowUpRight size={13} color={service.color} />
+                </span>
               </a>
             ))}
-            <a
-              href="#contact"
-              className="nav-peak-mobile__link nav-peak-mobile__link--highlight"
-              onClick={() => setIsOpen(false)}
-              style={{ animationDelay: `${7 * 0.07}s` }}
+          </div>
+
+          {/* Links */}
+          <div className="aether-mobile__section">
+            <span className="aether-mobile__label">Navigate</span>
+            {navLinks.map((link, i) => (
+              <a 
+                key={i} 
+                href={link.href} 
+                className="aether-mobile__link" 
+                onClick={() => setIsOpen(false)} 
+                style={{ animationDelay: `${(i + 5) * 0.05}s` }}
+              >
+                <link.icon size={16} strokeWidth={1.8} />
+                <span>{link.name}</span>
+                <ArrowRight size={13} />
+              </a>
+            ))}
+            <a 
+              href="#contact" 
+              className="aether-mobile__link aether-mobile__link--accent" 
+              onClick={() => setIsOpen(false)} 
+              style={{ animationDelay: '0.45s' }}
             >
-              <Headphones size={16} />
-              <span>Contact</span>
-              <ArrowRight size={14} />
+              <Headphones size={16} strokeWidth={1.8} />
+              <span>Contact Us</span>
+              <ArrowRight size={13} />
             </a>
           </div>
 
-          {/* Footer Actions */}
-          <div className="nav-peak-mobile__footer">
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="nav-peak-mobile__action nav-peak-mobile__action--whatsapp">
-              <MessageCircle size={18} />
-              <div>
-                <span>WhatsApp Chat</span>
-                <small>Instant response</small>
-              </div>
+          {/* Actions */}
+          <div className="aether-mobile__actions">
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="aether-mobile__action aether-mobile__action--whatsapp">
+              <MessageCircle size={19} strokeWidth={1.8} />
+              <div><span>WhatsApp</span><small>Instant response</small></div>
             </a>
-            <a href="tel:9843406360" className="nav-peak-mobile__action nav-peak-mobile__action--call">
-              <Phone size={18} />
-              <div>
-                <span>9843406360</span>
-                <small>Mon-Sat, 9AM-7PM</small>
-              </div>
+            <a href="tel:9843406360" className="aether-mobile__action aether-mobile__action--call">
+              <Phone size={19} strokeWidth={1.8} />
+              <div><span>9843406360</span><small>Mon–Sat · 9AM–7PM</small></div>
             </a>
           </div>
         </div>

@@ -1,591 +1,364 @@
-
-
-
-// import React, { useState, useRef, useEffect } from 'react';
-// import { 
-//   Code, 
-//   Palette, 
-//   GraduationCap, 
-//   Mic, 
-//   UtensilsCrossed, 
-//   Laptop,
-//   BarChart3,
-//   Shield,
-//   Briefcase,
-//   Printer,
-//   Users,
-//   Camera,
-//   ArrowRight,
-//   Sparkles,
-//   Star,
-//   Zap,
-//   ChevronRight,
-//   CheckCircle2
-// } from 'lucide-react';
-// import './Services.css';
-
-// const Services = () => {
-//   const [activeCategory, setActiveCategory] = useState(0);
-//   const [hoveredItem, setHoveredItem] = useState(null);
-//   const sectionRef = useRef(null);
-//   const categoryRefs = useRef([]);
-
-//   const services = [
-//     {
-//       id: 'business',
-//       category: 'Business Services',
-//       icon: Briefcase,
-//       gradient: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
-//       color: '#6366F1',
-//       bgColor: '#EEF2FF',
-//       tagline: 'Digital transformation under one roof',
-//       stats: { projects: '200+', clients: '150+', rating: '4.9' },
-//       items: [
-//         { name: 'Web & App Development', icon: Code, desc: 'Scalable platforms built with cutting-edge tech', highlight: 'React, Node.js, AWS' },
-//         { name: 'Digital Marketing & Branding', icon: BarChart3, desc: 'Data-driven campaigns that deliver real ROI', highlight: 'SEO, PPC, Social Media' },
-//         { name: 'UI/UX & Graphic Design', icon: Palette, desc: 'Human-centered designs that convert visitors', highlight: 'Figma, Prototyping' },
-//         { name: 'GST, Finance & Compliance', icon: Shield, desc: 'Hassle-free regulatory compliance management', highlight: 'GST Filing, Audits' },
-//         { name: 'Manpower & Staffing', icon: Users, desc: 'Right talent, right role, right time', highlight: 'IT & Non-IT Roles' },
-//         { name: 'Printing & Production', icon: Printer, desc: 'Premium print collateral for your brand', highlight: 'Brochures, Merchandise' },
-//       ]
-//     },
-//     {
-//       id: 'hospitality',
-//       category: 'Hospitality & Events',
-//       icon: UtensilsCrossed,
-//       gradient: 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)',
-//       color: '#F59E0B',
-//       bgColor: '#FFFBEB',
-//       tagline: 'Creating unforgettable experiences',
-//       stats: { projects: '500+', clients: '300+', rating: '4.8' },
-//       items: [
-//         { name: 'Multi-cuisine Restaurant', icon: UtensilsCrossed, desc: 'Premium dining with diverse culinary options', highlight: 'Indian, Chinese, Italian' },
-//         { name: 'Corporate Events', icon: Briefcase, desc: 'Professional event planning & execution', highlight: 'Conferences, Seminars' },
-//         { name: 'Weddings & Celebrations', icon: Star, desc: 'Your dream celebration brought to life', highlight: 'Decor, Catering, Planning' },
-//         { name: 'End-to-End Execution', icon: CheckCircle2, desc: 'From concept to flawless delivery', highlight: 'Venue, Logistics, Sound' },
-//       ]
-//     },
-//     {
-//       id: 'laptops',
-//       category: 'Laptop Solutions',
-//       icon: Laptop,
-//       gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-//       color: '#10B981',
-//       bgColor: '#ECFDF5',
-//       tagline: 'Premium tech at accessible prices',
-//       stats: { projects: '1000+', clients: '800+', rating: '4.9' },
-//       items: [
-//         { name: 'Refurbished Laptops', icon: Laptop, desc: 'Quality-tested devices with warranty', highlight: '8-12 Month Warranty' },
-//         { name: 'Bulk Corporate Orders', icon: Briefcase, desc: 'Enterprise-grade solutions at scale', highlight: 'Custom Configurations' },
-//         { name: 'Service & Support', icon: Shield, desc: 'Dedicated after-sales technical support', highlight: '24/7 Assistance' },
-//         { name: 'Student Discounts', icon: GraduationCap, desc: 'Special pricing for students & startups', highlight: 'Up to 40% Off' },
-//       ]
-//     },
-//     {
-//       id: 'training',
-//       category: 'Training & Skills',
-//       icon: GraduationCap,
-//       gradient: 'linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%)',
-//       color: '#0EA5E9',
-//       bgColor: '#F0F9FF',
-//       tagline: 'Learn by building real products',
-//       stats: { projects: '50+', clients: '500+', rating: '4.7' },
-//       items: [
-//         { name: 'Digital Marketing Course', icon: BarChart3, desc: 'Practical training with live campaigns', highlight: '3 Month Program' },
-//         { name: 'Full Stack Development', icon: Code, desc: 'Java, Python, React & more', highlight: 'Live Projects' },
-//         { name: 'UI/UX Design', icon: Palette, desc: 'Design thinking & industry tools', highlight: 'Portfolio Building' },
-//         { name: 'Soft Skills & English', icon: Users, desc: 'Communication & professional excellence', highlight: 'Mock Interviews' },
-//       ]
-//     },
-//     {
-//       id: 'creator',
-//       category: 'Creator Studio',
-//       icon: Mic,
-//       gradient: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
-//       color: '#EC4899',
-//       bgColor: '#FDF2F8',
-//       tagline: 'Where content comes to life',
-//       stats: { projects: '100+', clients: '50+', rating: '5.0' },
-//       items: [
-//         { name: 'Studio Setup & Lighting', icon: Camera, desc: 'Professional-grade recording environment', highlight: '4K Ready' },
-//         { name: 'Multi-cam Production', icon: Mic, desc: 'High-quality video with multiple angles', highlight: '3-Camera Setup' },
-//         { name: 'Editing & Post-Production', icon: Palette, desc: 'Expert editing, color grading & sound', highlight: 'Premiere Pro, DaVinci' },
-//         { name: 'Creator Support', icon: Users, desc: 'For brands, educators & influencers', highlight: 'End-to-End Service' },
-//       ]
-//     },
-//   ];
-
-//   const activeService = services[activeCategory];
-
-//   return (
-//     <section id="services" className="services-premium" ref={sectionRef}>
-      
-//       {/* Background decorative elements */}
-//      {/* ============ APPLE-INSPIRED BACKGROUND EFFECTS ============ */}
-// <div className="services-premium__bg">
-  
-//   {/* Hexagon Grid */}
-//   <div className="services-premium__hex-grid" />
-  
-//   {/* Geometric Shapes */}
-//   <div className="services-premium__geo-shapes">
-//     <div className="services-premium__geo-shape services-premium__geo-shape--hexagon" />
-//     <div className="services-premium__geo-shape services-premium__geo-shape--triangle" />
-//     <div className="services-premium__geo-shape services-premium__geo-shape--pentagon" />
-//     <div className="services-premium__geo-shape services-premium__geo-shape--diamond" />
-//   </div>
-  
-//   {/* Morphing Orbs */}
-//   <div className="services-premium__morph-orb services-premium__morph-orb--1" />
-//   <div className="services-premium__morph-orb services-premium__morph-orb--2" />
-//   <div className="services-premium__morph-orb services-premium__morph-orb--3" />
-  
-//   {/* Grid Lines */}
-//   <div className="services-premium__grid-lines">
-//     {[...Array(4)].map((_, i) => <div key={`h-${i}`} className="services-premium__grid-line" />)}
-//     {[...Array(4)].map((_, i) => <div key={`v-${i}`} className="services-premium__grid-line services-premium__grid-line--vertical" />)}
-//   </div>
-  
-//   {/* Light Streaks */}
-//   <div className="services-premium__light-streak services-premium__light-streak--1" />
-//   <div className="services-premium__light-streak services-premium__light-streak--2" />
-//   <div className="services-premium__light-streak services-premium__light-streak--3" />
-  
-//   {/* Particles */}
-//   <div className="services-premium__particles">
-//     {[...Array(15)].map((_, i) => {
-//       const types = ['circle', 'diamond', 'square'];
-//       const type = types[i % 3];
-//       const colors = ['#6366F1', '#10B981', '#F59E0B', '#EC4899', '#0EA5E9'];
-//       return (
-//         <div
-//           key={i}
-//           className={`services-premium__particle services-premium__particle--${type}`}
-//           style={{
-//             left: `${5 + Math.random() * 90}%`,
-//             top: `${5 + Math.random() * 90}%`,
-//             width: `${2 + Math.random() * 5}px`,
-//             height: `${2 + Math.random() * 5}px`,
-//             background: colors[i % colors.length],
-//             opacity: 0.12 + Math.random() * 0.15,
-//             '--px': `${(Math.random() - 0.5) * 120}px`,
-//             '--py': `${(Math.random() - 0.5) * 120}px`,
-//             animationDuration: `${8 + Math.random() * 12}s`,
-//             animationDelay: `${Math.random() * 10}s`,
-//           }}
-//         />
-//       );
-//     })}
-//   </div>
-  
-//   {/* Concentric Ripples */}
-//   <div className="services-premium__ripple services-premium__ripple--1" />
-//   <div className="services-premium__ripple services-premium__ripple--2" />
-//   <div className="services-premium__ripple services-premium__ripple--3" />
-  
-//   {/* Noise Texture */}
-//   <div className="services-premium__noise" />
-  
-//   {/* Existing orbs and grid */}
-//   <div className="services-premium__bg-orb services-premium__bg-orb--1" />
-//   <div className="services-premium__bg-orb services-premium__bg-orb--2" />
-//   <div className="services-premium__bg-grid" />
-// </div>
-//       <div className="services-premium__container">
-        
-//         {/* ============ SECTION HEADER ============ */}
-//         <div className="services-premium__header">
-//           <div className="services-premium__badge">
-//             <Sparkles size={14} />
-//             <span>What We Offer</span>
-//           </div>
-
-//           <h2 className="services-premium__title">
-//             Everything you need,
-//             <span className="services-premium__title-gradient"> in one place</span>
-//           </h2>
-          
-//           <p className="services-premium__subtitle">
-//             Five core verticals. Dozens of services. One partner for all your business, creative, and technical needs.
-//           </p>
-//         </div>
-
-//         {/* ============ ACTIVE CATEGORY CONTENT ============ */}
-//         <div className="services-premium__content">
-
-//           {/* Service Items Grid */}
-//           <div className="services-premium__grid">
-//             {activeService.items.map((item, index) => (
-//               <div
-//                 key={index}
-//                 className={`services-premium__item ${hoveredItem === index ? 'services-premium__item--hovered' : ''}`}
-//                 onMouseEnter={(e) => {
-//                   setHoveredItem(index);
-//                   const rect = e.currentTarget.getBoundingClientRect();
-//                   const x = ((e.clientX - rect.left) / rect.width) * 100;
-//                   const y = ((e.clientY - rect.top) / rect.height) * 100;
-//                   e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-//                   e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
-//                 }}
-//                 onMouseMove={(e) => {
-//                   if (hoveredItem === index) {
-//                     const rect = e.currentTarget.getBoundingClientRect();
-//                     const x = ((e.clientX - rect.left) / rect.width) * 100;
-//                     const y = ((e.clientY - rect.top) / rect.height) * 100;
-//                     e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-//                     e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
-//                   }
-//                 }}
-//                 onMouseLeave={() => setHoveredItem(null)}
-//                 style={{ '--item-color': activeService.color, '--item-bg': activeService.bgColor }}
-//               >
-//                 {/* Watermark Number */}
-//                 <span className="services-premium__item-number">
-//                   {String(index + 1).padStart(2, '0')}
-//                 </span>
-
-//                 {/* Item Header */}
-//                 <div className="services-premium__item-header">
-//                   <div className="services-premium__item-icon" style={{ backgroundColor: activeService.bgColor, color: activeService.color }}>
-//                     <item.icon size={18} />
-//                   </div>
-//                   <ChevronRight size={14} className="services-premium__item-chevron" />
-//                 </div>
-
-//                 {/* Item Content */}
-//                 <h4 className="services-premium__item-name">{item.name}</h4>
-//                 <p className="services-premium__item-desc">{item.desc}</p>
-
-//                 {/* Highlight Tag */}
-//                 <div className="services-premium__item-tag" style={{ color: activeService.color, backgroundColor: activeService.bgColor }}>
-//                   <Zap size={10} />
-//                   <span>{item.highlight}</span>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-
-//           {/* Bottom CTA Banner */}
-//           <div className="services-premium__banner" style={{ background: activeService.gradient }}>
-//             <div className="services-premium__banner-content">
-//               <div className="services-premium__banner-text">
-//                 <Sparkles size={20} color="#fff" />
-//                 <span>Ready to start your {activeService.category.toLowerCase()} journey?</span>
-//               </div>
-//               <a href="#contact" className="services-premium__banner-cta">
-//                 <span>Let's Talk</span>
-//                 <ArrowRight size={16} />
-//               </a>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Services;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Code, 
-  Palette, 
-  GraduationCap, 
-  Mic, 
-  UtensilsCrossed, 
-  Laptop,
-  BarChart3,
-  Shield,
-  Briefcase,
-  Printer,
-  Users,
-  Camera,
-  ArrowRight,
-  Sparkles,
-  Star,
-  Zap,
-  ChevronRight,
-  CheckCircle2,
-  ArrowUpRight
-} from 'lucide-react';
-import './CosmicServices.css';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { ArrowRight, ArrowUpRight, Plus } from 'lucide-react';
+import './Services.css';
 
 const Services = () => {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [hoveredItem, setHoveredItem] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
 
-  const services = [
+  const categories = [
     {
-      id: 'business',
-      category: 'Business Services',
-      icon: Briefcase,
-      gradient: 'linear-gradient(135deg, #6366F1 0%, #A78BFA 100%)',
-      color: '#6366F1',
-      bgLight: 'rgba(99, 102, 241, 0.1)',
-      tagline: 'Digital transformation under one roof',
-      stats: { projects: '200+', clients: '150+', rating: '4.9' },
+      label: 'Business',
+      title: 'Business Services',
+      subtitle: 'Digital transformation engineered for growth.',
+      color: '#4F46E5',
+      colorLight: '#EEF2FF',
+      colorAccent: '#818CF8',
+      gradient: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A78BFA 100%)',
+      stats: [
+        { value: '200+', label: 'Projects' },
+        { value: '4.9', label: 'Rating' },
+        { value: '25+', label: 'Experts' },
+      ],
       items: [
-        { name: 'Web & App Development', icon: Code, desc: 'Scalable platforms built with cutting-edge tech stacks', highlight: 'React, Node.js, AWS' },
-        { name: 'Digital Marketing', icon: BarChart3, desc: 'Data-driven campaigns that deliver measurable ROI', highlight: 'SEO, PPC, Social Media' },
-        { name: 'UI/UX & Brand Design', icon: Palette, desc: 'Human-centered designs that convert visitors into customers', highlight: 'Figma, Prototyping' },
-        { name: 'GST & Compliance', icon: Shield, desc: 'Hassle-free regulatory compliance management', highlight: 'GST Filing, Audits' },
-        { name: 'Talent & Staffing', icon: Users, desc: 'Right talent, right role, right time — always', highlight: 'IT & Non-IT Roles' },
-        { name: 'Print & Production', icon: Printer, desc: 'Premium print collateral that elevates your brand', highlight: 'Brochures, Merchandise' },
+        { title: 'Web & App Development', description: 'Scalable platforms engineered with modern stacks and architecture.', tag: 'React · Node.js · AWS' },
+        { title: 'Digital Marketing', description: 'Performance campaigns driven by data, optimized for return.', tag: 'SEO · PPC · Analytics' },
+        { title: 'UI/UX Design', description: 'Interfaces that convert visitors into lifelong customers.', tag: 'Figma · Design Systems' },
+        // { title: 'Compliance & Finance', description: 'Complete regulatory management for peace of mind.', tag: 'GST · Audits · Filing' },
+ 
       ]
     },
     {
-      id: 'hospitality',
-      category: 'Hospitality & Events',
-      icon: UtensilsCrossed,
-      gradient: 'linear-gradient(135deg, #F59E0B 0%, #F97316 100%)',
-      color: '#F59E0B',
-      bgLight: 'rgba(245, 158, 11, 0.1)',
-      tagline: 'Creating experiences that linger long after',
-      stats: { projects: '500+', clients: '300+', rating: '4.8' },
+      label: 'Hospitality',
+      title: 'Hospitality & Events',
+      subtitle: 'Experiences crafted with precision and artistry.',
+      color: '#EA580C',
+      colorLight: '#FFF7ED',
+      colorAccent: '#FB923C',
+      gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FDBA74 100%)',
+      stats: [
+        { value: '500+', label: 'Events' },
+        { value: '4.8', label: 'Rating' },
+        { value: '30+', label: 'Specialists' },
+      ],
       items: [
-        { name: 'Multi-Cuisine Dining', icon: UtensilsCrossed, desc: 'Premium restaurant with diverse culinary traditions', highlight: 'Indian, Chinese, Italian' },
-        { name: 'Corporate Events', icon: Briefcase, desc: 'Flawless planning & execution for professionals', highlight: 'Conferences, Seminars' },
-        { name: 'Weddings & Celebrations', icon: Star, desc: 'Your dream celebration, meticulously brought to life', highlight: 'Decor, Catering, Planning' },
-        { name: 'End-to-End Management', icon: CheckCircle2, desc: 'From initial concept to flawless final delivery', highlight: 'Venue, Logistics, Sound' },
+        // { title: 'Premium Dining', description: 'Multi-cuisine excellence in an atmosphere of refined comfort.', tag: 'Indian · Chinese · Italian' },
+        { title: 'Corporate Events', description: 'Impeccable planning for discerning professional audiences.', tag: 'Conferences · Galas' },
+        { title: 'Weddings & Celebrations', description: 'Your vision honored with meticulous attention to detail.', tag: 'Decor · Catering' },
+        { title: 'Full-Service Management', description: 'Concept through completion — seamless and stress-free.', tag: 'Venue · Logistics' },
       ]
     },
     {
-      id: 'laptops',
-      category: 'Laptop Solutions',
-      icon: Laptop,
-      gradient: 'linear-gradient(135deg, #10B981 0%, #34D399 100%)',
-      color: '#10B981',
-      bgLight: 'rgba(16, 185, 129, 0.1)',
-      tagline: 'Premium technology, accessible to all',
-      stats: { projects: '1000+', clients: '800+', rating: '4.9' },
+      label: 'Technology',
+      title: 'Laptop Solutions',
+      subtitle: 'Premium devices made accessible, never compromised.',
+      color: '#059669',
+      colorLight: '#ECFDF5',
+      colorAccent: '#34D399',
+      gradient: 'linear-gradient(135deg, #059669 0%, #10B981 50%, #6EE7B7 100%)',
+      stats: [
+        { value: '1000+', label: 'Units' },
+        { value: '4.9', label: 'Rating' },
+        { value: '15+', label: 'Tech Team' },
+      ],
       items: [
-        { name: 'Refurbished Laptops', icon: Laptop, desc: 'Quality-tested devices backed by solid warranty', highlight: '8-12 Month Warranty' },
-        { name: 'Bulk Corporate Orders', icon: Briefcase, desc: 'Enterprise-grade solutions at competitive scale', highlight: 'Custom Configurations' },
-        { name: 'Service & Support', icon: Shield, desc: 'Dedicated after-sales technical assistance', highlight: '24/7 Support' },
-        { name: 'Student Discounts', icon: GraduationCap, desc: 'Special pricing to empower education & startups', highlight: 'Up to 40% Off' },
+        { title: 'Certified Refurbished', description: 'Rigorously tested devices with comprehensive warranty.', tag: '8–12 Month Warranty' },
+        { title: 'Enterprise Procurement', description: 'Custom configurations at scale with dedicated support.', tag: 'Tailored Solutions' },
+        { title: 'Support & Service', description: 'Technical assistance available when and how you need it.', tag: '24/7 Help Desk' },
+    //     { title: 'Education Access', description: 'Special pricing that empowers students and startups.', tag: 'Up to 40% Savings' },
+       ]
+    },
+    {
+      label: 'Education',
+      title: 'Training & Skills',
+      subtitle: 'Learning experiences that translate directly to careers.',
+      color: '#0284C7',
+      colorLight: '#F0F9FF',
+      colorAccent: '#38BDF8',
+      gradient: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #7DD3FC 100%)',
+      stats: [
+        { value: '50+', label: 'Courses' },
+        { value: '4.7', label: 'Rating' },
+        { value: '20+', label: 'Mentors' },
+      ],
+      items: [
+        { title: 'Digital Marketing', description: 'Master real campaigns with actual budgets and data.', tag: '3-Month Intensive' },
+        { title: 'Full Stack Development', description: 'Build production-ready apps from architecture to deployment.', tag: 'Java · React · Python' },
+        // { title: 'UI/UX Design', description: 'Craft experiences through design thinking and tools.', tag: 'Portfolio Included' },
+        { title: 'Professional Skills', description: 'Communication and presence for high-stakes environments.', tag: 'Mock Interviews' },
       ]
     },
     {
-      id: 'training',
-      category: 'Training & Skills',
-      icon: GraduationCap,
-      gradient: 'linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%)',
-      color: '#0EA5E9',
-      bgLight: 'rgba(14, 165, 233, 0.1)',
-      tagline: 'Learn by building — not just watching',
-      stats: { projects: '50+', clients: '500+', rating: '4.7' },
+      label: 'Creative',
+      title: 'Creator Studio',
+      subtitle: 'Where ideas crystallize and content becomes art.',
+      color: '#DB2777',
+      colorLight: '#FDF2F8',
+      colorAccent: '#F472B6',
+      gradient: 'linear-gradient(135deg, #DB2777 0%, #EC4899 50%, #F9A8D4 100%)',
+      stats: [
+        { value: '100+', label: 'Productions' },
+        { value: '5.0', label: 'Rating' },
+        { value: '10+', label: 'Creatives' },
+      ],
       items: [
-        { name: 'Digital Marketing Course', icon: BarChart3, desc: 'Practical training with live campaign experience', highlight: '3 Month Program' },
-        { name: 'Full Stack Development', icon: Code, desc: 'Master Java, Python, React & modern stacks', highlight: 'Live Projects' },
-        { name: 'UI/UX Design', icon: Palette, desc: 'Design thinking, tools & portfolio building', highlight: 'Portfolio Building' },
-        { name: 'Soft Skills & English', icon: Users, desc: 'Communication mastery & professional excellence', highlight: 'Mock Interviews' },
-      ]
-    },
-    {
-      id: 'creator',
-      category: 'Creator Studio',
-      icon: Mic,
-      gradient: 'linear-gradient(135deg, #EC4899 0%, #F472B6 100%)',
-      color: '#EC4899',
-      bgLight: 'rgba(236, 72, 153, 0.1)',
-      tagline: 'Where content transforms into art',
-      stats: { projects: '100+', clients: '50+', rating: '5.0' },
-      items: [
-        { name: 'Studio & Lighting', icon: Camera, desc: 'Professional-grade recording environment, 4K ready', highlight: '4K Ready' },
-        { name: 'Multi-Cam Production', icon: Mic, desc: 'High-quality video captured from multiple angles', highlight: '3-Camera Setup' },
-        { name: 'Editing & Post-Production', icon: Palette, desc: 'Expert editing, color grading & sound design', highlight: 'Premiere Pro, DaVinci' },
-        { name: 'Creator Support', icon: Users, desc: 'End-to-end service for brands & influencers', highlight: 'End-to-End Service' },
+        { title: 'Studio & Lighting', description: 'Cinema-grade environment for stunning visual output.', tag: '4K · Pro Lighting' },
+        // { title: 'Multi-Camera Production', description: 'Dynamic storytelling from multiple perspectives.', tag: '3-Camera Setup' },
+        { title: 'Post-Production', description: 'Expert editing, color grading, and sound design.', tag: 'Premiere · DaVinci' },
+        { title: 'Creative Partnership', description: 'End-to-end support from concept to delivery.', tag: 'Full Crew · Full Service' },
       ]
     },
   ];
 
-  const activeService = services[activeCategory];
+  const active = categories[activeIndex];
 
-  const handleCategoryChange = (index) => {
-    if (index === activeCategory || isTransitioning) return;
+  // Scroll progress tracking for dynamic background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      const scrollStart = rect.top;
+      const progress = Math.max(0, Math.min(1, -scrollStart / (sectionHeight - windowHeight)));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Mouse parallax
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const handleCategoryChange = useCallback((index) => {
+    if (index === activeIndex || isTransitioning) return;
     setIsTransitioning(true);
-    setActiveCategory(index);
+    setActiveIndex(index);
+    setHoveredCard(null);
     setTimeout(() => setIsTransitioning(false), 400);
-  };
+  }, [activeIndex, isTransitioning]);
 
   return (
-    <section id="services" className="cosmic-services" ref={sectionRef}>
+    <section id="services" className="aether" ref={sectionRef}>
       
-      {/* ============ COSMIC BACKGROUND ============ */}
-      <div className="cosmic-services__bg">
-        <div className="cosmic-services__particle-field" />
-        <div className="cosmic-services__morph-orb cosmic-services__morph-orb--1" />
-        <div className="cosmic-services__morph-orb cosmic-services__morph-orb--2" />
-        <div className="cosmic-services__grid-lines" />
-        <div className="cosmic-services__noise" />
-      </div>
-
-      <div className="cosmic-services__container">
-        
-        {/* ============ SECTION HEADER ============ */}
-        <div className="cosmic-services__header">
-          <div className="cosmic-services__badge">
-            <Sparkles size={14} />
-            <span>Our Ecosystem</span>
-          </div>
-
-          <h2 className="cosmic-services__title">
-            Everything your brand needs,
-            <span className="cosmic-services__title-gradient"> in one orbit</span>
-          </h2>
-          
-          <p className="cosmic-services__subtitle">
-            Five integrated verticals orbiting a single mission: your growth. Explore the constellation of services below.
-          </p>
-        </div>
-
-        {/* ============ CONSTELLATION CATEGORY TABS ============ */}
-        <div className="cosmic-services__constellation">
-          {services.map((service, index) => (
-            <button
-              key={service.id}
-              className={`cosmic-services__star ${activeCategory === index ? 'cosmic-services__star--active' : ''}`}
-              onClick={() => handleCategoryChange(index)}
-            >
-              <div className="cosmic-services__star-icon" style={{ 
-                background: activeCategory === index ? service.gradient : 'transparent',
-                color: activeCategory === index ? '#fff' : service.color,
-                borderColor: service.color
-              }}>
-                <service.icon size={18} />
-              </div>
-              <span className="cosmic-services__star-label">{service.category}</span>
-              {/* Active indicator glow */}
-              {activeCategory === index && <div className="cosmic-services__star-glow" style={{ background: service.gradient }} />}
-            </button>
+      {/* ================================================================ */}
+      {/* DYNAMIC GRADIENT MESH BACKGROUND */}
+      {/* ================================================================ */}
+      <div className="aether__atmosphere">
+        <div 
+          className="aether__atmosphere-layer aether__atmosphere-layer--1"
+          style={{ 
+            opacity: 0.5 + scrollProgress * 0.3,
+            transform: `translate(${(mousePosition.x - 0.5) * 20}px, ${(mousePosition.y - 0.5) * 20}px)` 
+          }}
+        />
+        <div 
+          className="aether__atmosphere-layer aether__atmosphere-layer--2"
+          style={{ 
+            opacity: 0.3 + scrollProgress * 0.4,
+            transform: `translate(${(mousePosition.x - 0.5) * -30}px, ${(mousePosition.y - 0.5) * -30}px)` 
+          }}
+        />
+        <div 
+          className="aether__atmosphere-layer aether__atmosphere-layer--3"
+          style={{ 
+            background: active.gradient,
+            opacity: 0.08 + scrollProgress * 0.06,
+            transform: `translate(${(mousePosition.x - 0.5) * 15}px, ${(mousePosition.y - 0.5) * 15}px) scale(${1 + scrollProgress * 0.1})`
+          }}
+        />
+        {/* Floating particles */}
+        <div className="aether__particles">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="aether__particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${2 + Math.random() * 4}px`,
+                height: `${2 + Math.random() * 4}px`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${6 + Math.random() * 10}s`,
+                opacity: 0.15 + Math.random() * 0.3,
+              }}
+            />
           ))}
         </div>
+      </div>
 
-        {/* ============ ACTIVE CATEGORY CONTENT ============ */}
-        <div className="cosmic-services__universe" ref={contentRef}>
-          
-          {/* Category Info Bar */}
-          <div className="cosmic-services__info-bar" style={{ borderColor: activeService.color }}>
-            <div className="cosmic-services__info-icon" style={{ background: activeService.gradient }}>
-              <activeService.icon size={22} color="#fff" />
-            </div>
-            <div>
-              <h3 className="cosmic-services__info-title" style={{ color: activeService.color }}>
-                {activeService.category}
-              </h3>
-              <p className="cosmic-services__info-tagline">{activeService.tagline}</p>
-            </div>
-            <div className="cosmic-services__stats">
-              <div className="cosmic-services__stat">
-                <Star size={14} fill={activeService.color} color={activeService.color} />
-                <span>{activeService.stats.rating}</span>
-              </div>
-              <div className="cosmic-services__stat">
-                <Zap size={14} color={activeService.color} />
-                <span>{activeService.stats.projects}</span>
-              </div>
-              <div className="cosmic-services__stat">
-                <Users size={14} color={activeService.color} />
-                <span>{activeService.stats.clients}</span>
-              </div>
-            </div>
+      <div className="aether__container">
+        
+        {/* ================================================================ */}
+        {/* SECTION HEADER */}
+        {/* ================================================================ */}
+        <header className="aether__header">
+          <div className="aether__kicker">
+            <span className="aether__kicker-line" />
+            Our Services
           </div>
+          <h2 className="aether__heading">
+            Everything you need
+            <br />
+            <span className="aether__heading-accent">in one place</span>
+          </h2>
+          <p className="aether__subheading">
+            Five integrated divisions orbiting a shared mission — your success. 
+            From code to cuisine, from pixels to productions.
+          </p>
+        </header>
 
-          {/* Service Items Grid */}
-          <div className={`cosmic-services__grid ${isTransitioning ? 'cosmic-services__grid--transitioning' : ''}`}>
-            {activeService.items.map((item, index) => (
-              <div
-                key={index}
-                className={`cosmic-services__card ${hoveredItem === index ? 'cosmic-services__card--hovered' : ''}`}
-                onMouseEnter={() => setHoveredItem(index)}
-                onMouseLeave={() => setHoveredItem(null)}
-                style={{ 
-                  '--card-color': activeService.color,
-                  '--card-bg': activeService.bgLight,
-                  '--card-gradient': activeService.gradient
+        {/* ================================================================ */}
+        {/* CATEGORY TABS — FLOATING GLASS PILLS */}
+        {/* ================================================================ */}
+        <nav className="aether__tabs" aria-label="Service categories">
+          <div className="aether__tabs-track">
+            {categories.map((cat, i) => (
+              <button
+                key={i}
+                className={`aether__tab ${activeIndex === i ? 'aether__tab--active' : ''}`}
+                onClick={() => handleCategoryChange(i)}
+                style={{
+                  '--tab-color': cat.color,
+                  '--tab-gradient': cat.gradient,
                 }}
               >
-                {/* Light beam effect on hover */}
-                <div className="cosmic-services__card-beam" />
-                
-                {/* Card Index */}
-                <span className="cosmic-services__card-index">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-
-                {/* Card Icon */}
-                <div className="cosmic-services__card-icon" style={{ 
-                  background: activeService.bgLight, 
-                  color: activeService.color,
-                  borderColor: `${activeService.color}30`
-                }}>
-                  <item.icon size={20} />
-                </div>
-
-                {/* Card Content */}
-                <h4 className="cosmic-services__card-name">{item.name}</h4>
-                <p className="cosmic-services__card-desc">{item.desc}</p>
-
-                {/* Highlight Badge */}
-                <div className="cosmic-services__card-badge" style={{ 
-                  color: activeService.color, 
-                  background: activeService.bgLight,
-                  borderColor: `${activeService.color}40`
-                }}>
-                  <Sparkles size={10} />
-                  <span>{item.highlight}</span>
-                </div>
-
-                {/* Hover Arrow */}
-                <ArrowUpRight size={16} className="cosmic-services__card-arrow" color={activeService.color} />
-              </div>
+                <span className="aether__tab-label">{cat.label}</span>
+                {activeIndex === i && (
+                  <span className="aether__tab-glow" />
+                )}
+              </button>
             ))}
           </div>
+        </nav>
 
-          {/* ============ COSMIC CTA BANNER ============ */}
-          <div className="cosmic-services__banner" style={{ background: activeService.gradient }}>
-            <div className="cosmic-services__banner-glow" />
-            <div className="cosmic-services__banner-content">
-              <div className="cosmic-services__banner-text">
-                <Sparkles size={22} color="#fff" />
-                <span>Ready to launch your {activeService.category.toLowerCase()}?</span>
+        {/* ================================================================ */}
+        {/* ACTIVE CATEGORY SHOWCASE */}
+        {/* ================================================================ */}
+        <div 
+          className={`aether__showcase ${isTransitioning ? 'aether__showcase--morphing' : ''}`} 
+          key={activeIndex}
+          ref={contentRef}
+        >
+          
+          {/* Category Hero Card */}
+          <div className="aether__hero" style={{ borderColor: `${active.color}20` }}>
+            <div 
+              className="aether__hero-bg"
+              style={{ background: active.gradient }}
+            />
+            <div className="aether__hero-content">
+              <div className="aether__hero-info">
+                <h3 className="aether__hero-title">{active.title}</h3>
+                <p className="aether__hero-subtitle">{active.subtitle}</p>
               </div>
-              <a href="#contact" className="cosmic-services__banner-cta">
-                <span>Start a Project</span>
-                <ArrowRight size={18} />
-              </a>
+              
+              <div className="aether__hero-stats">
+                {active.stats.map((stat, i) => (
+                  <div key={i} className="aether__hero-stat">
+                    <span className="aether__hero-stat-value" style={{ color: active.color }}>
+                      {stat.value}
+                    </span>
+                    <span className="aether__hero-stat-label">{stat.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="cosmic-services__banner-particles">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="cosmic-services__banner-particle" style={{
-                  left: `${10 + i * 12}%`,
-                  animationDelay: `${i * 0.3}s`
-                }} />
-              ))}
+          </div>
+
+          {/* Service Cards — Glass Morphing Grid */}
+          <div className="aether__grid">
+            {active.items.map((item, i) => {
+              const isHovered = hoveredCard === `${activeIndex}-${i}`;
+              return (
+                <article
+                  key={i}
+                  className={`aether__card ${isHovered ? 'aether__card--revealed' : ''}`}
+                  onMouseEnter={() => setHoveredCard(`${activeIndex}-${i}`)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  style={{
+                    '--card-color': active.color,
+                    '--card-gradient': active.gradient,
+                    '--card-light': active.colorLight,
+                  }}
+                >
+                  {/* Glass overlay on hover */}
+                  <div className="aether__card-glass" />
+                  
+                  {/* Hover border gradient */}
+                  <div className="aether__card-border" />
+                  
+                  {/* Content */}
+                  <div className="aether__card-body">
+                    <span className="aether__card-num" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    
+                    <h4 className="aether__card-title">{item.title}</h4>
+                    <p className="aether__card-desc">{item.description}</p>
+                    
+                    <div className="aether__card-tag-row">
+                      <span className="aether__card-tag" style={{ 
+                        color: active.color, 
+                        backgroundColor: active.colorLight,
+                      }}>
+                        {item.tag}
+                      </span>
+                      
+                      <span className="aether__card-icon" style={{ color: active.color }}>
+                        <Plus size={14} strokeWidth={2.5} />
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Corner accent */}
+                  <div className="aether__card-corner" style={{ borderColor: active.color }} />
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Bottom CTA — Floating Banner */}
+          <div className="aether__cta">
+            <div className="aether__cta-inner" style={{ background: active.gradient }}>
+              <div className="aether__cta-pattern" />
+              <div className="aether__cta-content">
+                <div>
+                  <p className="aether__cta-heading">
+                    Begin your {active.label.toLowerCase()} transformation
+                  </p>
+                  <p className="aether__cta-subtext">
+                    Schedule a consultation with our specialists.
+                  </p>
+                </div>
+                <a 
+                  href="#contact" 
+                  className="aether__cta-btn"
+                >
+                  <span>Start a Project</span>
+                  <ArrowRight size={16} strokeWidth={2} />
+                  <span className="aether__cta-btn-shine" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -10,13 +10,16 @@ import Footer from './components/layout/Footer';
 import './App.css';
 import AuroraNavbar from './components/layout/AuroraNavbar';
 import Career from './components/Carrer';
+import Service from './components/Service';
 
 const App = () => {
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-white">
-      <AuroraNavbar />
+      {/* <AuroraNavbar /> */}
+      <Navbar/>
       <Hero/>
-      <Services />
+      {/* <Services /> */}
+      <Service/>
       <Strengths />
       <Career/>
       <Testimonials />

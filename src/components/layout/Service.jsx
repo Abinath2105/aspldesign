@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import './Service.css';
 
-const Services = () => {
+const Service = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -241,4 +241,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Service;
