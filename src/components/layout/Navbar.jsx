@@ -14,6 +14,7 @@ import {
   Headphones
 } from 'lucide-react';
 import './Navbar.css';
+import logo from '../img/logo.jpeg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,18 +99,9 @@ const Navbar = () => {
             onMouseEnter={() => setHoveredItem('logo')}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <div className={`navbar-premium__logo-icon ${hoveredItem === 'logo' ? 'navbar-premium__logo-icon--glow' : ''}`}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <rect width="24" height="24" rx="7" fill="url(#logo-gradient)"/>
-                <path d="M7 12.5L10.5 16L17 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs>
-                  <linearGradient id="logo-gradient" x1="0" y1="0" x2="24" y2="24">
-                    <stop stopColor="#6366F1"/>
-                    <stop offset="1" stopColor="#8B5CF6"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+           <div className={`navbar-premium__logo-icon navbar-premium__logo-icon--with-bg ${hoveredItem === 'logo' ? 'navbar-premium__logo-icon--glow' : ''}`}>
+  <img src={logo} alt="ASPL Logo" />
+</div>
             
             <div className="navbar-premium__logo-text">
               <span className="navbar-premium__logo-brand">ASPL</span>
@@ -117,7 +109,7 @@ const Navbar = () => {
             </div>
 
             {/* Logo decorative dot */}
-            <div className="navbar-premium__logo-dot" />
+            {/* <div className="navbar-premium__logo-dot" /> */}
           </a>
 
           {/* ============ CENTER: NAVIGATION ============ */}

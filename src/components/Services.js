@@ -1,119 +1,3 @@
-// import React from 'react';
-// import { 
-//   Code, 
-//   Palette, 
-//   GraduationCap, 
-//   Mic, 
-//   UtensilsCrossed, 
-//   Laptop,
-//   BarChart3,
-//   Shield,
-//   Briefcase,
-//   Printer,
-//   Users,
-//   Camera
-// } from 'lucide-react';
-
-// const Services = () => {
-//   const services = [
-//     {
-//       category: 'Business Services',
-//       icon: Briefcase,
-//       color: 'from-violet-500 to-purple-600',
-//       items: [
-//         { name: 'Web & App Development', icon: Code, desc: 'Build powerful, scalable digital platforms' },
-//         { name: 'Digital Marketing & Branding', icon: BarChart3, desc: 'Visibility, credibility, leads & sales' },
-//         { name: 'UI/UX & Graphic Design', icon: Palette, desc: 'Designs that convert & inspire' },
-//         { name: 'GST, Finance & Compliance', icon: Shield, desc: 'Stay compliant without complexity' },
-//         { name: 'Manpower & Staffing', icon: Users, desc: 'Right people, right time' },
-//         { name: 'Printing & Production', icon: Printer, desc: 'From branding to event assets' },
-//       ]
-//     },
-//     {
-//       category: 'Hospitality & Events',
-//       icon: UtensilsCrossed,
-//       color: 'from-orange-500 to-red-600',
-//       items: [
-//         { name: 'Multi-cuisine Restaurant', icon: UtensilsCrossed, desc: 'Premium dining experience' },
-//         { name: 'Corporate Events', icon: Briefcase, desc: 'Professional event management' },
-//         { name: 'Weddings & Celebrations', icon: Users, desc: 'Your dream event realized' },
-//         { name: 'End-to-End Execution', icon: BarChart3, desc: 'Planning to flawless delivery' },
-//       ]
-//     },
-//     {
-//       category: 'Training & Development',
-//       icon: GraduationCap,
-//       color: 'from-emerald-500 to-teal-600',
-//       items: [
-//         { name: 'Digital Marketing', icon: BarChart3, desc: 'Practical training with live projects' },
-//         { name: 'Full Stack Development', icon: Code, desc: 'Java, Python & more' },
-//         { name: 'UI/UX Design', icon: Palette, desc: 'Design thinking & tools' },
-//         { name: 'Spoken English & Soft Skills', icon: Users, desc: 'Communication excellence' },
-//       ]
-//     },
-//     {
-//       category: 'Podcast & Creator Studio',
-//       icon: Mic,
-//       color: 'from-pink-500 to-rose-600',
-//       items: [
-//         { name: 'Studio Setup & Lighting', icon: Camera, desc: 'Professional recording environment' },
-//         { name: 'Multi-cam Shooting', icon: Camera, desc: 'High-quality video production' },
-//         { name: 'Editing & Directing', icon: Palette, desc: 'Post-production excellence' },
-//         { name: 'Creator Support', icon: Users, desc: 'For brands & educators' },
-//       ]
-//     },
-//   ];
-
-//   return (
-//     <section id="services" className="relative py-32">
-//       <div className="max-w-7xl mx-auto px-6">
-//         {/* Section Header */}
-//         <div className="text-center mb-20">
-//           <h2 className="text-4xl md:text-6xl font-black mb-6">
-//             Our <span className="gradient-text">Services</span>
-//           </h2>
-//           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-//             Five core categories, infinite possibilities. Everything you need to grow, create, and succeed.
-//           </p>
-//         </div>
-
-//         {/* Services Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {services.map((service, index) => (
-//             <div key={index} className="glass-card rounded-3xl p-8">
-//               {/* Category Header */}
-//               <div className="flex items-center space-x-4 mb-8">
-//                 <div className={`w-14 h-14 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center`}>
-//                   <service.icon size={28} className="text-white" />
-//                 </div>
-//                 <div>
-//                   <h3 className="text-2xl font-bold">{service.category}</h3>
-//                   <p className="text-sm text-gray-500">{service.items.length} services</p>
-//                 </div>
-//               </div>
-
-//               {/* Items Grid */}
-//               <div className="grid grid-cols-2 gap-4">
-//                 {service.items.map((item, idx) => (
-//                   <div 
-//                     key={idx} 
-//                     className="bg-white/[0.02] border border-white/5 rounded-xl p-4 hover:bg-white/[0.05] transition-all duration-300 group cursor-pointer"
-//                   >
-//                     <item.icon size={20} className="text-violet-400 mb-3 group-hover:scale-110 transition-transform" />
-//                     <h4 className="font-semibold text-sm mb-1">{item.name}</h4>
-//                     <p className="text-xs text-gray-500">{item.desc}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Services;
 
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -245,6 +129,28 @@ const Services = () => {
       
       {/* Background decorative elements */}
       <div className="services-premium__bg">
+
+        {/* Floating Particles */}
+<div className="services-premium__particles">
+  {[...Array(12)].map((_, i) => (
+    <div 
+      key={i}
+      className="services-premium__particle"
+      style={{
+        left: `${5 + Math.random() * 90}%`,
+        top: `${5 + Math.random() * 90}%`,
+        width: `${2 + Math.random() * 4}px`,
+        height: `${2 + Math.random() * 4}px`,
+        background: ['#6366F1', '#10B981', '#F59E0B', '#EC4899'][i % 4],
+        opacity: 0.15 + Math.random() * 0.15,
+        '--px': `${(Math.random() - 0.5) * 100}px`,
+        '--py': `${(Math.random() - 0.5) * 100}px`,
+        animationDuration: `${6 + Math.random() * 10}s`,
+        animationDelay: `${Math.random() * 8}s`,
+      }}
+    />
+  ))}
+</div>
         <div className="services-premium__bg-orb services-premium__bg-orb--1" />
         <div className="services-premium__bg-orb services-premium__bg-orb--2" />
         <div className="services-premium__bg-grid" />
@@ -269,88 +175,14 @@ const Services = () => {
             Five core verticals. Dozens of services. One partner for all your business, creative, and technical needs.
           </p>
 
-          {/* Category Tabs */}
-          <div className="services-premium__tabs">
-            {services.map((service, index) => (
-              <button
-                key={service.id}
-                className={`services-premium__tab ${index === activeCategory ? 'services-premium__tab--active' : ''}`}
-                onClick={() => scrollToCategory(index)}
-                style={{
-                  '--tab-color': service.color,
-                  '--tab-bg': service.bgColor,
-                }}
-              >
-                <div className="services-premium__tab-icon">
-                  <service.icon size={18} />
-                </div>
-                <span className="services-premium__tab-label">{service.category}</span>
-                {index === activeCategory && (
-                  <span className="services-premium__tab-dot" />
-                )}
-              </button>
-            ))}
-          </div>
+  
         </div>
 
         {/* ============ ACTIVE CATEGORY CONTENT ============ */}
         <div className="services-premium__content">
           
           {/* Category Hero Card */}
-          <div className="services-premium__hero-card" style={{ '--card-color': activeService.color, '--card-bg': activeService.bgColor }}>
-            <div className="services-premium__hero-card-inner">
-              {/* Left: Info */}
-              <div className="services-premium__hero-info">
-                <div className="services-premium__hero-icon" style={{ background: activeService.gradient }}>
-                  <activeService.icon size={28} color="#fff" />
-                </div>
-                
-                <h3 className="services-premium__hero-title">{activeService.category}</h3>
-                <p className="services-premium__hero-tagline">{activeService.tagline}</p>
-                
-                {/* Stats Row */}
-                <div className="services-premium__hero-stats">
-                  <div className="services-premium__hero-stat">
-                    <span className="services-premium__hero-stat-value">{activeService.stats.projects}</span>
-                    <span className="services-premium__hero-stat-label">Projects</span>
-                  </div>
-                  <div className="services-premium__hero-stat-divider" />
-                  <div className="services-premium__hero-stat">
-                    <span className="services-premium__hero-stat-value">{activeService.stats.clients}</span>
-                    <span className="services-premium__hero-stat-label">Clients</span>
-                  </div>
-                  <div className="services-premium__hero-stat-divider" />
-                  <div className="services-premium__hero-stat">
-                    <span className="services-premium__hero-stat-value">{activeService.stats.rating}</span>
-                    <span className="services-premium__hero-stat-label">Rating</span>
-                  </div>
-                </div>
 
-                <a href="#contact" className="services-premium__hero-cta">
-                  <span>Get Started with {activeService.category.split(' ')[0]}</span>
-                  <ArrowRight size={16} />
-                </a>
-              </div>
-
-              {/* Right: Visual */}
-              <div className="services-premium__hero-visual" style={{ backgroundColor: activeService.bgColor }}>
-                {/* Abstract shape */}
-                <div className="services-premium__hero-shape" style={{ background: activeService.gradient }}>
-                  <activeService.icon size={48} color="#fff" opacity={0.3} />
-                </div>
-                
-                {/* Floating mini cards */}
-                <div className="services-premium__hero-mini-card services-premium__hero-mini-card--1">
-                  <Zap size={14} color={activeService.color} />
-                  <span>Premium Quality</span>
-                </div>
-                <div className="services-premium__hero-mini-card services-premium__hero-mini-card--2">
-                  <Shield size={14} color={activeService.color} />
-                  <span>100% Satisfaction</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Service Items Grid */}
           <div className="services-premium__grid">
