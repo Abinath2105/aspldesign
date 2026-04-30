@@ -1,0 +1,513 @@
+/* ==================== COSMIC SERVICES — PRODUCTION DESIGN SYSTEM ==================== */
+/* Premium Design by ASPL | DeepSeek Creative */
+
+/* --- Design Tokens (Matched with Aurora Navbar) --- */
+:root {
+  --cosmic-bg-primary: #08080C;
+  --cosmic-bg-secondary: rgba(15, 15, 25, 0.6);
+  --cosmic-text-primary: #FFFFFF;
+  --cosmic-text-secondary: rgba(255, 255, 255, 0.7);
+  --cosmic-glass-border: rgba(255, 255, 255, 0.06);
+  --cosmic-transition: 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- Base Section --- */
+.cosmic-services {
+  position: relative;
+  padding: 120px 0;
+  background: var(--cosmic-bg-primary);
+  overflow: hidden;
+}
+
+.cosmic-services__container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ==================== BACKGROUND EFFECTS ==================== */
+.cosmic-services__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cosmic-services__particle-field {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 10% 20%, rgba(167, 139, 250, 0.3), transparent),
+    radial-gradient(1px 1px at 25% 60%, rgba(244, 114, 182, 0.25), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(52, 211, 153, 0.2), transparent),
+    radial-gradient(1px 1px at 60% 15%, rgba(56, 189, 248, 0.25), transparent),
+    radial-gradient(1px 1px at 75% 45%, rgba(245, 158, 11, 0.2), transparent),
+    radial-gradient(1px 1px at 90% 70%, rgba(167, 139, 250, 0.25), transparent),
+    radial-gradient(2px 2px at 15% 40%, rgba(255, 255, 255, 0.15), transparent),
+    radial-gradient(2px 2px at 55% 30%, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(2px 2px at 85% 90%, rgba(255, 255, 255, 0.12), transparent);
+  background-size: 100% 100%;
+}
+
+.cosmic-services__morph-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+}
+
+.cosmic-services__morph-orb--1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #6366F1, transparent);
+  top: -200px;
+  right: -100px;
+  animation: morphOrb 20s ease-in-out infinite;
+}
+
+.cosmic-services__morph-orb--2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #EC4899, transparent);
+  bottom: -150px;
+  left: -100px;
+  animation: morphOrb 25s ease-in-out infinite reverse;
+}
+
+.cosmic-services__grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.cosmic-services__noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes morphOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* ==================== HEADER ==================== */
+.cosmic-services__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.cosmic-services__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 50px;
+  color: #A78BFA;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.cosmic-services__title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--cosmic-text-primary);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.cosmic-services__title-gradient {
+  background: linear-gradient(135deg, #A78BFA, #F472B6, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cosmic-services__subtitle {
+  font-size: 1.1rem;
+  color: var(--cosmic-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ==================== CONSTELLATION TABS ==================== */
+.cosmic-services__constellation {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.cosmic-services__star {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cosmic-glass-border);
+  border-radius: 50px;
+  color: var(--cosmic-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--cosmic-transition);
+  backdrop-filter: blur(10px);
+}
+
+.cosmic-services__star:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cosmic-text-primary);
+  transform: translateY(-2px);
+}
+
+.cosmic-services__star--active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--cosmic-text-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.cosmic-services__star-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid;
+  transition: all var(--cosmic-transition);
+}
+
+.cosmic-services__star--active .cosmic-services__star-icon {
+  transform: scale(1.1);
+}
+
+.cosmic-services__star-label {
+  font-size: 0.9rem;
+}
+
+.cosmic-services__star-glow {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  border-radius: 3px;
+  filter: blur(4px);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ==================== INFO BAR ==================== */
+.cosmic-services__info-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 28px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+}
+
+.cosmic-services__info-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cosmic-services__info-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cosmic-services__info-tagline {
+  font-size: 0.9rem;
+  color: var(--cosmic-text-secondary);
+  margin: 2px 0 0 0;
+}
+
+.cosmic-services__stats {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.cosmic-services__stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cosmic-text-primary);
+}
+
+/* ==================== SERVICES GRID ==================== */
+.cosmic-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+  transition: opacity 0.3s ease;
+}
+
+.cosmic-services__grid--transitioning {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cosmic-services__card {
+  position: relative;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--cosmic-glass-border);
+  border-radius: 20px;
+  transition: all var(--cosmic-transition);
+  overflow: hidden;
+  cursor: default;
+}
+
+.cosmic-services__card--hovered {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.cosmic-services__card-beam {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg at 50% 50%, transparent, var(--card-bg), transparent, var(--card-bg), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: rotateBeam 8s linear infinite;
+}
+
+.cosmic-services__card--hovered .cosmic-services__card-beam {
+  opacity: 0.15;
+}
+
+@keyframes rotateBeam {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cosmic-services__card-index {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+.cosmic-services__card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.cosmic-services__card--hovered .cosmic-services__card-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.cosmic-services__card-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cosmic-text-primary);
+  margin: 0 0 8px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.cosmic-services__card-desc {
+  font-size: 0.88rem;
+  color: var(--cosmic-text-secondary);
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.cosmic-services__card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1px solid;
+  position: relative;
+  z-index: 1;
+}
+
+.cosmic-services__card-arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  opacity: 0;
+  transform: translate(-8px, 8px);
+  transition: all 0.3s ease;
+}
+
+.cosmic-services__card--hovered .cosmic-services__card-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ==================== CTA BANNER ==================== */
+.cosmic-services__banner {
+  position: relative;
+  border-radius: 24px;
+  padding: 36px 40px;
+  overflow: hidden;
+}
+
+.cosmic-services__banner-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15), transparent 70%);
+}
+
+.cosmic-services__banner-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cosmic-services__banner-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cosmic-services__banner-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.cosmic-services__banner-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cosmic-services__banner-particles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.cosmic-services__banner-particle {
+  position: absolute;
+  bottom: 10px;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: rise 4s ease-in infinite;
+}
+
+@keyframes rise {
+  0% { bottom: 10px; opacity: 0.6; }
+  100% { bottom: 90%; opacity: 0; }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .cosmic-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cosmic-services__constellation {
+    gap: 8px;
+  }
+  .cosmic-services__star {
+    padding: 10px 16px;
+  }
+  .cosmic-services__star-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cosmic-services {
+    padding: 80px 0;
+  }
+  .cosmic-services__container {
+    padding: 0 20px;
+  }
+  .cosmic-services__grid {
+    grid-template-columns: 1fr;
+  }
+  .cosmic-services__info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cosmic-services__stats {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
+  .cosmic-services__banner-content {
+    flex-direction: column;
+  }
+  .cosmic-services__constellation {
+    gap: 6px;
+  }
+}
