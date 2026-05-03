@@ -892,12 +892,12 @@ const Navbar = () => {
         <div className="nav__mob-backdrop" onClick={() => setIsOpen(false)} />
         <div className="nav__mob-panel">
           
-          <div className="nav__mob-head">
+          {/* <div className="nav__mob-head">
             <img src={logo} alt="ASPL" className="nav__mob-logo" />
             <button className="nav__mob-close" onClick={() => setIsOpen(false)}>
               <X size={18} strokeWidth={1.8} />
             </button>
-          </div>
+          </div> */}
 
        
 
