@@ -678,7 +678,7 @@ const Navbar = () => {
           </div>
 
           {/* Services */}
-          <div className="aether-mobile__section">
+          {/* <div className="aether-mobile__section">
             <span className="aether-mobile__label">Services</span>
             {services.map((service, i) => (
               <a
@@ -695,7 +695,7 @@ const Navbar = () => {
                 </span>
               </a>
             ))}
-          </div>
+          </div> */}
 
           {/* Links */}
           <div className="aether-mobile__section">
