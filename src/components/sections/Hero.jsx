@@ -375,7 +375,7 @@ import { ArrowRight, MessageCircle, Star } from 'lucide-react';
 import './Hero.css';
 
 // Import images
-import businessImg from '../img/business.jpg';
+import businessImg from '../img/banner1.jpg';
 import hospitalityImg from '../img/event.jpg';
 import laptopImg from '../img/laptop.jpg';
 import trainingImg from '../img/training.jpg';
@@ -611,12 +611,12 @@ const Hero = () => {
       {/* ================================================================ */}
       {/* SCROLL INDICATOR */}
       {/* ================================================================ */}
-      <div className="hero__scroll">
+      {/* <div className="hero__scroll">
         <span className="hero__scroll-text">Discover</span>
         <div className="hero__scroll-track">
           <div className="hero__scroll-dot" />
         </div>
-      </div>
+      </div> */}
 
       {/* ================================================================ */}
       {/* WHATSAPP FLOAT */}
