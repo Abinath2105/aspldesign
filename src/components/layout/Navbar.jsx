@@ -903,7 +903,7 @@ const Navbar = () => {
 
           {/* Links */}
           <div className="nav__mob-section">
-            <span className="nav__mob-label">Navigate</span>
+            <span className="nav__mob-label"></span>
             {navLinks.map((link, i) => (
               <a
                 key={i}
