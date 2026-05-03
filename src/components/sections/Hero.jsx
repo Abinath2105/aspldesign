@@ -370,8 +370,287 @@
 
 
 
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle, Star } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [imagesLoaded, setImagesLoaded] = useState({});
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   // Entrance
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 150);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   // Mouse tracking for parallax
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     setMousePos({
+//       x: (e.clientX - rect.left) / rect.width,
+//       y: (e.clientY - rect.top) / rect.height,
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   // Auto-rotate
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveIndex((prev) => (prev + 1) % services.length);
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   // Preload images
+//   useEffect(() => {
+//     const images = [businessImg, hospitalityImg, laptopImg, trainingImg, creatorImg];
+//     images.forEach((src, i) => {
+//       const img = new Image();
+//       img.src = src;
+//       img.onload = () => setImagesLoaded(prev => ({ ...prev, [i]: true }));
+//     });
+//   }, []);
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       color: '#4F46E5',
+//       gradient: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A78BFA 100%)',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects shipped' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       color: '#EA580C',
+//       gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FDBA74 100%)',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       color: '#059669',
+//       gradient: 'linear-gradient(135deg, #059669 0%, #10B981 50%, #6EE7B7 100%)',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       color: '#0284C7',
+//       gradient: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #7DD3FC 100%)',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       color: '#DB2777',
+//       gradient: 'linear-gradient(135deg, #DB2777 0%, #EC4899 50%, #F9A8D4 100%)',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+
+//   return (
+//     <section className="hero" ref={sectionRef} onMouseMove={handleMouseMove}>
+      
+//       {/* ================================================================ */}
+//       {/* BACKGROUND — Cinematic image crossfade */}
+//       {/* ================================================================ */}
+//       <div className="hero__canvas">
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero__image ${i === activeIndex ? 'hero__image--active' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           >
+//             <div className="hero__image-veil" />
+//           </div>
+//         ))}
+        
+//         {/* Atmospheric gradient overlay */}
+//         <div 
+//           className="hero__atmosphere"
+//           style={{
+//             background: `radial-gradient(ellipse at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}15 0%, transparent 60%)`
+//           }}
+//         />
+        
+//         {/* Deep bottom fade */}
+//         <div className="hero__fade" />
+//       </div>
+
+//       {/* ================================================================ */}
+//       {/* FLOATING PARALLAX ORBS */}
+//       {/* ================================================================ */}
+//       <div className="hero__orbs">
+//         <div 
+//           className="hero__orb hero__orb--1"
+//           style={{
+//             background: `radial-gradient(circle, ${active.color}30, transparent)`,
+//             transform: `translate(${(mousePos.x - 0.5) * 40}px, ${(mousePos.y - 0.5) * 40}px)`
+//           }}
+//         />
+//         <div 
+//           className="hero__orb hero__orb--2"
+//           style={{
+//             background: `radial-gradient(circle, ${active.color}15, transparent)`,
+//             transform: `translate(${(mousePos.x - 0.5) * -60}px, ${(mousePos.y - 0.5) * -60}px)`
+//           }}
+//         />
+//       </div>
+
+//       {/* ================================================================ */}
+//       {/* CONTENT */}
+//       {/* ================================================================ */}
+//       <div className={`hero__content ${isVisible ? 'hero__content--visible' : ''}`}>
+        
+//         {/* Category selector — inline pills */}
+//         {/* <div className="hero__pills">
+//           {services.map((svc, i) => (
+//             <button
+//               key={svc.id}
+//               className={`hero__pill ${i === activeIndex ? 'hero__pill--active' : ''}`}
+//               onClick={() => setActiveIndex(i)}
+//               style={{ '--pill-color': svc.color }}
+//             >
+//               {svc.label}
+//               {i === activeIndex && <span className="hero__pill-glow" />}
+//             </button>
+//           ))}
+//         </div> */}
+
+//         {/* Main headline */}
+//         <h1 className="hero__headline">
+//           <span className="hero__headline-static">We turn</span>
+//           <span 
+//             className="hero__headline-dynamic"
+//             style={{ 
+//               backgroundImage: active.gradient,
+//               WebkitBackgroundClip: 'text',
+//               WebkitTextFillColor: 'transparent',
+//               backgroundClip: 'text',
+//             }}
+//           >
+//             {active.headline}
+//           </span>
+//           <span className="hero__headline-static">into growth engines</span>
+//         </h1>
+
+//         {/* Feature chips */}
+//         <div className="hero__chips">
+//           {active.features.map((feat, i) => (
+//             <span 
+//               key={i} 
+//               className="hero__chip"
+//               style={{ 
+//                 '--chip-color': active.color,
+//                 animationDelay: `${i * 0.1}s`
+//               }}
+//             >
+//               <Star size={10} fill={active.color} color={active.color} />
+//               {feat}
+//             </span>
+//           ))}
+//         </div>
+
+//         {/* Stat + CTA row */}
+//         <div className="hero__action">
+//           <div className="hero__stat">
+//             <span className="hero__stat-value" style={{ color: active.color }}>
+//               {active.stat.value}
+//             </span>
+//             <span className="hero__stat-label">{active.stat.label}</span>
+//           </div>
+          
+//           <a 
+//             href="#contact" 
+//             className="hero__cta"
+//             style={{ background: active.gradient }}
+//           >
+//             <span>Start a project</span>
+//             <ArrowRight size={16} strokeWidth={2} />
+//             <span className="hero__cta-shimmer" />
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* ================================================================ */}
+//       {/* SCROLL INDICATOR */}
+//       {/* ================================================================ */}
+//       {/* <div className="hero__scroll">
+//         <span className="hero__scroll-text">Discover</span>
+//         <div className="hero__scroll-track">
+//           <div className="hero__scroll-dot" />
+//         </div>
+//       </div> */}
+
+//       {/* ================================================================ */}
+//       {/* WHATSAPP FLOAT */}
+//       {/* ================================================================ */}
+//       <a 
+//         href={whatsappLink} 
+//         target="_blank" 
+//         rel="noopener noreferrer" 
+//         className="hero__whatsapp"
+//       >
+//         <span className="hero__whatsapp-pulse" />
+//         <MessageCircle size={20} color="#FFFFFF" />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { ArrowRight, MessageCircle, Star } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import './Hero.css';
 
 // Import images
@@ -386,17 +665,14 @@ const Hero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const [imagesLoaded, setImagesLoaded] = useState({});
+  const [progress, setProgress] = useState(0);
 
   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
 
-  // Entrance
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 150);
-    return () => clearTimeout(timer);
+    setTimeout(() => setIsVisible(true), 200);
   }, []);
 
-  // Mouse tracking for parallax
   const handleMouseMove = useCallback((e) => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
@@ -411,23 +687,29 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [handleMouseMove]);
 
-  // Auto-rotate
+  // Auto-rotate with progress bar
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % services.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    const duration = 5000;
+    const interval = 50;
+    let elapsed = 0;
+
+    const timer = setInterval(() => {
+      elapsed += interval;
+      setProgress((elapsed % duration) / duration);
+      
+      if (elapsed >= duration) {
+        elapsed = 0;
+        setActiveIndex((prev) => (prev + 1) % services.length);
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
   }, []);
 
-  // Preload images
-  useEffect(() => {
-    const images = [businessImg, hospitalityImg, laptopImg, trainingImg, creatorImg];
-    images.forEach((src, i) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => setImagesLoaded(prev => ({ ...prev, [i]: true }));
-    });
-  }, []);
+  const handlePillClick = (index) => {
+    setActiveIndex(index);
+    setProgress(0);
+  };
 
   const services = [
     {
@@ -435,17 +717,15 @@ const Hero = () => {
       label: 'Business',
       headline: 'Digital transformation',
       color: '#4F46E5',
-      gradient: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A78BFA 100%)',
       image: businessImg,
       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
-      stat: { value: '200+', label: 'Projects shipped' },
+      stat: { value: '200+', label: 'Projects delivered' },
     },
     {
       id: 'hospitality',
       label: 'Hospitality',
       headline: 'Unforgettable events',
       color: '#EA580C',
-      gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FDBA74 100%)',
       image: hospitalityImg,
       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
       stat: { value: '500+', label: 'Events executed' },
@@ -455,7 +735,6 @@ const Hero = () => {
       label: 'Technology',
       headline: 'Premium devices',
       color: '#059669',
-      gradient: 'linear-gradient(135deg, #059669 0%, #10B981 50%, #6EE7B7 100%)',
       image: laptopImg,
       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
       stat: { value: '1000+', label: 'Units delivered' },
@@ -465,7 +744,6 @@ const Hero = () => {
       label: 'Training',
       headline: 'Career acceleration',
       color: '#0284C7',
-      gradient: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #7DD3FC 100%)',
       image: trainingImg,
       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
       stat: { value: '500+', label: 'Graduates placed' },
@@ -475,7 +753,6 @@ const Hero = () => {
       label: 'Creative',
       headline: 'Content mastery',
       color: '#DB2777',
-      gradient: 'linear-gradient(135deg, #DB2777 0%, #EC4899 50%, #F9A8D4 100%)',
       image: creatorImg,
       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
       stat: { value: '100+', label: 'Productions done' },
@@ -487,148 +764,83 @@ const Hero = () => {
   return (
     <section className="hero" ref={sectionRef} onMouseMove={handleMouseMove}>
       
-      {/* ================================================================ */}
-      {/* BACKGROUND — Cinematic image crossfade */}
-      {/* ================================================================ */}
-      <div className="hero__canvas">
+      {/* Image background with crossfade */}
+      <div className="hero__bg">
         {services.map((svc, i) => (
           <div
             key={svc.id}
-            className={`hero__image ${i === activeIndex ? 'hero__image--active' : ''}`}
+            className={`hero__bg-img ${i === activeIndex ? 'hero__bg-img--active' : ''}`}
             style={{ backgroundImage: `url(${svc.image})` }}
-          >
-            <div className="hero__image-veil" />
-          </div>
+          />
         ))}
-        
-        {/* Atmospheric gradient overlay */}
+        <div className="hero__bg-overlay" />
         <div 
-          className="hero__atmosphere"
+          className="hero__bg-glow"
           style={{
-            background: `radial-gradient(ellipse at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}15 0%, transparent 60%)`
-          }}
-        />
-        
-        {/* Deep bottom fade */}
-        <div className="hero__fade" />
-      </div>
-
-      {/* ================================================================ */}
-      {/* FLOATING PARALLAX ORBS */}
-      {/* ================================================================ */}
-      <div className="hero__orbs">
-        <div 
-          className="hero__orb hero__orb--1"
-          style={{
-            background: `radial-gradient(circle, ${active.color}30, transparent)`,
-            transform: `translate(${(mousePos.x - 0.5) * 40}px, ${(mousePos.y - 0.5) * 40}px)`
-          }}
-        />
-        <div 
-          className="hero__orb hero__orb--2"
-          style={{
-            background: `radial-gradient(circle, ${active.color}15, transparent)`,
-            transform: `translate(${(mousePos.x - 0.5) * -60}px, ${(mousePos.y - 0.5) * -60}px)`
+            background: `radial-gradient(ellipse at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}20 0%, transparent 50%)`,
           }}
         />
       </div>
 
-      {/* ================================================================ */}
-      {/* CONTENT */}
-      {/* ================================================================ */}
-      <div className={`hero__content ${isVisible ? 'hero__content--visible' : ''}`}>
+      <div className={`hero__wrap ${isVisible ? 'hero__wrap--in' : ''}`}>
         
-        {/* Category selector — inline pills */}
-        {/* <div className="hero__pills">
-          {services.map((svc, i) => (
-            <button
-              key={svc.id}
-              className={`hero__pill ${i === activeIndex ? 'hero__pill--active' : ''}`}
-              onClick={() => setActiveIndex(i)}
-              style={{ '--pill-color': svc.color }}
-            >
-              {svc.label}
-              {i === activeIndex && <span className="hero__pill-glow" />}
-            </button>
-          ))}
-        </div> */}
-
-        {/* Main headline */}
-        <h1 className="hero__headline">
-          <span className="hero__headline-static">We turn</span>
-          <span 
-            className="hero__headline-dynamic"
-            style={{ 
-              backgroundImage: active.gradient,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            {active.headline}
-          </span>
-          <span className="hero__headline-static">into growth engines</span>
-        </h1>
-
-        {/* Feature chips */}
-        <div className="hero__chips">
-          {active.features.map((feat, i) => (
-            <span 
-              key={i} 
-              className="hero__chip"
-              style={{ 
-                '--chip-color': active.color,
-                animationDelay: `${i * 0.1}s`
-              }}
-            >
-              <Star size={10} fill={active.color} color={active.color} />
-              {feat}
-            </span>
-          ))}
-        </div>
-
-        {/* Stat + CTA row */}
-        <div className="hero__action">
-          <div className="hero__stat">
-            <span className="hero__stat-value" style={{ color: active.color }}>
-              {active.stat.value}
-            </span>
-            <span className="hero__stat-label">{active.stat.label}</span>
-          </div>
+        {/* Content */}
+        <div className="hero__content">
           
-          <a 
-            href="#contact" 
-            className="hero__cta"
-            style={{ background: active.gradient }}
-          >
-            <span>Start a project</span>
-            <ArrowRight size={16} strokeWidth={2} />
-            <span className="hero__cta-shimmer" />
-          </a>
+          {/* Category pills */}
+          {/* <div className="hero__pills">
+            {services.map((svc, i) => (
+              <button
+                key={svc.id}
+                className={`hero__pill ${i === activeIndex ? 'hero__pill--on' : ''}`}
+                onClick={() => handlePillClick(i)}
+                style={{ '--pill-color': svc.color }}
+              >
+                <span className="hero__pill-label">{svc.label}</span>
+                {i === activeIndex && (
+                  <span className="hero__pill-bar">
+                    <span className="hero__pill-bar-fill" style={{ width: `${progress * 100}%` }} />
+                  </span>
+                )}
+              </button>
+            ))}
+          </div> */}
+
+          {/* Headline */}
+          <h1 className="hero__headline">
+            We turn <span></span>
+            <span className="hero__headline-highlight" style={{ color: active.color }}>
+              {active.headline}
+            </span> <span></span>
+            into growth engines
+          </h1>
+
+          {/* Features */}
+          <div className="hero__features">
+            {active.features.map((feat, i) => (
+              <span key={i} className="hero__feature" style={{ animationDelay: `${i * 0.08}s` }}>
+                {feat}
+              </span>
+            ))}
+          </div>
+
+          {/* Action row */}
+          <div className="hero__action">
+            <div className="hero__stat">
+              <span className="hero__stat-num" style={{ color: active.color }}>{active.stat.value}</span>
+              <span className="hero__stat-lbl">{active.stat.label}</span>
+            </div>
+            <a href="#contact" className="hero__cta" style={{ background: active.color }}>
+              Start a project
+              <ArrowRight size={16} strokeWidth={2} />
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* ================================================================ */}
-      {/* SCROLL INDICATOR */}
-      {/* ================================================================ */}
-      {/* <div className="hero__scroll">
-        <span className="hero__scroll-text">Discover</span>
-        <div className="hero__scroll-track">
-          <div className="hero__scroll-dot" />
-        </div>
-      </div> */}
-
-      {/* ================================================================ */}
-      {/* WHATSAPP FLOAT */}
-      {/* ================================================================ */}
-      <a 
-        href={whatsappLink} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="hero__whatsapp"
-      >
-        <span className="hero__whatsapp-pulse" />
-        <MessageCircle size={20} color="#FFFFFF" />
+      {/* WhatsApp */}
+      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hero__wa">
+        <MessageCircle size={20} color="#fff" />
       </a>
     </section>
   );

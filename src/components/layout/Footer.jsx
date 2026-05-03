@@ -124,7 +124,7 @@ const Footer = () => {
               </a>
               <span className="ftr__brand-contact-item">
                 <MapPin size={14} strokeWidth={1.5} />
-                Pondicherry, India
+                Bangalore, India
               </span>
             </div>
           </div>
@@ -184,19 +184,19 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} ASPL Tech Solutions Pvt. Ltd. All rights reserved.
           </p>
           <p className="ftr__made">
-            Made with <Heart size={11} fill="#EF4444" color="#EF4444" /> in India
+            Made  in India
           </p>
         </div>
       </div>
 
       {/* Back to top */}
-      <button
+      {/* <button
         className={`ftr__top ${showTop ? 'ftr__top--visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Back to top"
       >
         <ArrowUp size={16} strokeWidth={2} />
-      </button>
+      </button> */}
     </footer>
   );
 };

@@ -1,284 +1,196 @@
 /* ============================================================
-   APPLE PARTNERS — Narrative · Stat-driven · Essential
+   HEXAGON PARTNERS — Geometric · Living · Masterful
    ============================================================ */
 
 :root {
-  --ptn-bg: #FFFFFF;
+  --ptn-bg: #FAFAFA;
+  --ptn-surface: #FFFFFF;
   --ptn-text: #1D1D1F;
   --ptn-text-secondary: #6E6E73;
   --ptn-text-tertiary: #AEAEB2;
-  --ptn-border: rgba(0, 0, 0, 0.06);
-  --ptn-surface: #F5F5F7;
-  --ptn-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ptn-border: rgba(0,0,0,0.06);
+  --ptn-ease: cubic-bezier(0.25,0.1,0.25,1);
 }
 
-/* ========== SECTION ========== */
 .ptn {
   position: relative;
   background: var(--ptn-bg);
-  padding: 120px 0 100px;
+  padding: 110px 0 90px;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ========== CANVAS ========== */
-.ptn__canvas {
-  position: absolute;
-  inset: -50%;
-  pointer-events: none;
-  z-index: 0;
+/* ================================================================
+   HEXAGON CANVAS — Living geometric field
+   ================================================================ */
+.ptn__hex {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+  opacity: 0.7;
 }
 
-.ptn__mesh {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(130px);
+/* Gradient atmosphere */
+.ptn__atmos {
+  position: absolute; inset: -30%; pointer-events: none; z-index: 0;
 }
 
-.ptn__mesh--1 {
-  width: 620px;
-  height: 620px;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.10), rgba(124, 58, 237, 0.05), transparent 70%);
-  top: 48%;
-  left: 20%;
-  opacity: 0.11;
-  animation: pOrb1 22s ease-in-out infinite;
+.ptn__atmos-orb {
+  position: absolute; border-radius: 50%; filter: blur(120px);
 }
 
-.ptn__mesh--2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(219, 39, 119, 0.08), rgba(234, 88, 12, 0.04), transparent 70%);
-  top: 30%;
-  right: 16%;
-  opacity: 0.08;
-  animation: pOrb2 26s ease-in-out infinite;
+.ptn__atmos-orb--1 {
+  width: 550px; height: 550px;
+  background: radial-gradient(circle, rgba(79,70,229,0.12), transparent 70%);
+  top: 30%; left: -8%; opacity: 0.10;
+  animation: orbA 20s ease-in-out infinite;
 }
 
-.ptn__mesh--3 {
-  width: 440px;
-  height: 440px;
-  background: radial-gradient(circle, rgba(5, 150, 105, 0.07), rgba(16, 185, 129, 0.03), transparent 70%);
-  bottom: 10%;
-  left: 44%;
-  opacity: 0.06;
-  animation: pOrb3 30s ease-in-out infinite;
+.ptn__atmos-orb--2 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(219,39,119,0.08), transparent 70%);
+  top: 40%; right: -5%; opacity: 0.06;
+  animation: orbB 24s ease-in-out infinite;
 }
 
-@keyframes pOrb1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(38px, -22px) scale(1.05); }
+.ptn__atmos-glow {
+  position: absolute; inset: 0;
+  transition: background 0.5s var(--ptn-ease);
 }
 
-@keyframes pOrb2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-32px, 18px) scale(1.06); }
+@keyframes orbA {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(50px,-25px) scale(1.06); }
 }
-
-@keyframes pOrb3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-24px, -14px) scale(1.07); }
+@keyframes orbB {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-40px,20px) scale(1.08); }
 }
 
 /* ========== WRAPPER ========== */
 .ptn__wrap {
-  position: relative;
-  z-index: 2;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 48px;
-  opacity: 0;
-  transform: translateY(16px);
+  position: relative; z-index: 2;
+  max-width: 960px; margin: 0 auto; padding: 0 40px;
+  opacity: 0; transform: translateY(16px);
   transition: opacity 0.7s var(--ptn-ease), transform 0.7s var(--ptn-ease);
 }
-
-.ptn__wrap--in {
-  opacity: 1;
-  transform: translateY(0);
-}
+.ptn__wrap--in { opacity: 1; transform: translateY(0); }
 
 /* ========== HEADER ========== */
-.ptn__header {
-  text-align: center;
-  margin-bottom: 56px;
+.ptn__head { text-align: center; margin-bottom: 48px; }
+
+.ptn__head-label {
+  display: block; font-size: 0.74rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ptn-text-tertiary); margin-bottom: 12px;
 }
 
-.ptn__label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ptn-text-tertiary);
-  margin-bottom: 14px;
-}
-
-.ptn__heading {
-  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-  font-weight: 680;
-  color: var(--ptn-text);
-  margin: 0 0 10px;
+.ptn__head-title {
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 680;
+  color: var(--ptn-text); margin: 0 0 12px;
   letter-spacing: -0.04em;
-  line-height: 1.1;
 }
 
-.ptn__heading-accent {
-  color: var(--ptn-text-tertiary);
-  font-weight: 400;
+.ptn__head-title-fade { color: var(--ptn-text-tertiary); font-weight: 400; }
+
+.ptn__head-desc {
+  font-size: 0.90rem; color: var(--ptn-text-secondary);
+  max-width: 400px; margin: 0 auto; line-height: 1.5;
 }
 
-.ptn__subtitle {
-  font-size: 0.95rem;
-  color: var(--ptn-text-secondary);
-  max-width: 420px;
-  margin: 0 auto;
-  line-height: 1.5;
+/* ========== GRID ========== */
+.ptn__grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 14px; margin-bottom: 44px;
 }
 
-/* ========== STORIES ========== */
-.ptn__stories {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 52px;
-}
-
-@media (max-width: 640px) {
-  .ptn__stories {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
-
-/* ========== STORY CARD ========== */
-.ptn__story {
+.ptn__card {
   position: relative;
   background: var(--ptn-surface);
   border: 1px solid var(--ptn-border);
-  border-radius: 20px;
-  padding: 32px 28px 24px;
+  border-radius: 18px; padding: 32px 28px 24px;
   transition: all 0.35s var(--ptn-ease);
-  cursor: default;
-  animation: storyIn 0.5s var(--ptn-ease) both;
-  overflow: hidden;
+  cursor: default; overflow: hidden;
+  animation: cardUp 0.5s var(--ptn-ease) both;
 }
-
-@keyframes storyIn {
-  from { opacity: 0; transform: translateY(18px); }
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.ptn__story:hover {
+.ptn__card:hover {
   border-color: var(--p-color);
   transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.06);
 }
 
-/* Large stat number */
-.ptn__story-stat {
+.ptn__card-stat {
   display: block;
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  margin-bottom: 18px;
-  transition: color 0.3s var(--ptn-ease);
+  font-size: 3rem; font-weight: 720;
+  letter-spacing: -0.05em; line-height: 1;
+  margin-bottom: 16px; transition: color 0.35s var(--ptn-ease);
 }
 
-/* Content */
-.ptn__story-name {
-  font-size: 1.2rem;
-  font-weight: 650;
-  color: var(--ptn-text);
-  margin: 0 0 4px;
+.ptn__card-name {
+  font-size: 1.08rem; font-weight: 640;
+  color: var(--ptn-text); margin: 0 0 4px;
   letter-spacing: -0.02em;
 }
 
-.ptn__story-meta {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--ptn-text-tertiary);
-  margin-bottom: 12px;
+.ptn__card-meta {
+  display: block; font-size: 0.78rem;
+  color: var(--ptn-text-tertiary); margin-bottom: 12px;
 }
 
-.ptn__story-desc {
-  font-size: 0.88rem;
-  color: var(--ptn-text-secondary);
-  line-height: 1.55;
-  margin: 0 0 18px;
+.ptn__card-desc {
+  font-size: 0.84rem; color: var(--ptn-text-secondary);
+  line-height: 1.5; margin: 0 0 16px;
 }
 
-.ptn__story-since {
-  font-size: 0.78rem;
-  font-weight: 540;
+.ptn__card-since {
+  font-size: 0.76rem; font-weight: 540;
 }
 
-/* Accent bar on hover */
-.ptn__story-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 0;
+.ptn__card-line {
+  position: absolute; bottom: 0; left: 0;
+  height: 3px; width: 0;
   transition: width 0.4s var(--ptn-ease);
   border-radius: 0 2px 0 0;
 }
+.ptn__card:hover .ptn__card-line { width: 100%; }
 
-.ptn__story:hover .ptn__story-line {
-  width: 100%;
-}
-
-/* ========== TRUST ========== */
+/* ========== TRUST BAR ========== */
 .ptn__trust {
-  display: flex;
-  justify-content: center;
-  gap: 52px;
-  padding: 28px 36px;
+  display: flex; justify-content: center; gap: 48px;
+  padding: 26px 32px;
   background: var(--ptn-surface);
   border: 1px solid var(--ptn-border);
-  border-radius: 18px;
-  flex-wrap: wrap;
+  border-radius: 16px; flex-wrap: wrap;
 }
 
-.ptn__trust-item {
-  text-align: center;
+.ptn__trust-item { text-align: center; }
+.ptn__trust-num {
+  display: block; font-size: 1.4rem; font-weight: 680;
+  color: var(--ptn-text); letter-spacing: -0.03em;
+}
+.ptn__trust-lbl {
+  display: block; font-size: 0.72rem;
+  color: var(--ptn-text-tertiary); margin-top: 4px;
 }
 
-.ptn__trust-value {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 680;
-  color: var(--ptn-text);
-  letter-spacing: -0.03em;
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .ptn__grid { grid-template-columns: 1fr; gap: 10px; }
+  .ptn__card { padding: 26px 22px 20px; }
+  .ptn__card-stat { font-size: 2.4rem; }
 }
 
-.ptn__trust-label {
-  display: block;
-  font-size: 0.76rem;
-  color: var(--ptn-text-tertiary);
-  margin-top: 4px;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 640px) {
-  .ptn {
-    padding: 80px 0 60px;
-  }
-  
-  .ptn__wrap {
-    padding: 0 20px;
-  }
-  
-  .ptn__story {
-    padding: 24px 20px 20px;
-  }
-  
-  .ptn__story-stat {
-    font-size: 2.8rem;
-  }
-  
-  .ptn__trust {
-    gap: 24px;
-    padding: 20px;
-  }
+@media (max-width: 480px) {
+  .ptn { padding: 70px 0 50px; }
+  .ptn__wrap { padding: 0 16px; }
+  .ptn__trust { gap: 24px; padding: 18px 16px; }
+  .ptn__card { padding: 22px 16px 18px; }
+  .ptn__card-stat { font-size: 2rem; }
 }

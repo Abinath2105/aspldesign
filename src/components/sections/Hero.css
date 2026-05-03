@@ -1,7 +1,4 @@
-/* ============================================================
-   AETHER HERO — Cinematic · Atmospheric · Breathtaking
-   ============================================================ */
-
+/* 
 :root {
   --hero-bg: #0A0A0F;
   --hero-text: #FFFFFF;
@@ -9,7 +6,7 @@
   --hero-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ========== SECTION ========== */
+
 .hero {
   position: relative;
   height: 100vh;
@@ -19,7 +16,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
 }
 
-/* ========== CANVAS — Image System ========== */
+
 .hero__canvas {
   position: absolute;
   inset: 0;
@@ -52,14 +49,14 @@
   );
 }
 
-/* Atmosphere glow */
+
 .hero__atmosphere {
   position: absolute;
   inset: 0;
   transition: background 0.8s var(--hero-ease);
 }
 
-/* Bottom fade */
+
 .hero__fade {
   position: absolute;
   bottom: 0;
@@ -69,7 +66,7 @@
   background: linear-gradient(to top, var(--hero-bg), transparent);
 }
 
-/* ========== PARALLAX ORBS ========== */
+
 .hero__orbs {
   position: absolute;
   inset: 0;
@@ -97,7 +94,7 @@
   left: -80px;
 }
 
-/* ========== CONTENT ========== */
+
 .hero__content {
   position: relative;
   z-index: 10;
@@ -120,7 +117,7 @@
   transform: translateY(0);
 }
 
-/* ========== CATEGORY PILLS ========== */
+
 .hero__pills {
   display: flex;
   gap: 6px;
@@ -177,7 +174,7 @@
   50% { opacity: 1; }
 }
 
-/* ========== HEADLINE ========== */
+
 .hero__headline {
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 750;
@@ -209,7 +206,7 @@
   }
 }
 
-/* ========== FEATURE CHIPS ========== */
+
 .hero__chips {
   display: flex;
   flex-wrap: wrap;
@@ -251,14 +248,14 @@
   }
 }
 
-/* ========== ACTION ROW ========== */
+
 .hero__action {
   display: flex;
   align-items: center;
   gap: 32px;
 }
 
-/* Stat */
+
 .hero__stat {
   text-align: left;
 }
@@ -280,7 +277,7 @@
   letter-spacing: -0.005em;
 }
 
-/* CTA */
+
 .hero__cta {
   position: relative;
   display: flex;
@@ -319,7 +316,7 @@
   transform: translateX(100%);
 }
 
-/* ========== SCROLL INDICATOR ========== */
+
 .hero__scroll {
   position: absolute;
   bottom: 32px;
@@ -376,7 +373,7 @@
   }
 }
 
-/* ========== WHATSAPP FLOAT ========== */
+
 .hero__whatsapp {
   position: fixed;
   bottom: 28px;
@@ -417,7 +414,7 @@
   }
 }
 
-/* ========== RESPONSIVE ========== */
+
 @media (max-width: 768px) {
   .hero__content {
     padding: 100px 24px 60px;
@@ -450,4 +447,209 @@
   .hero__stat {
     text-align: center;
   }
+} */
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   APPLE HERO — Cinematic · Emotional · Masterful
+   ============================================================ */
+
+:root {
+  --hero-bg: #0A0A0F;
+  --hero-text: #FFFFFF;
+  --hero-text-secondary: rgba(255,255,255,0.55);
+  --hero-text-tertiary: rgba(255,255,255,0.30);
+  --hero-ease: cubic-bezier(0.25,0.1,0.25,1);
+}
+
+/* ========== SECTION ========== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 650px;
+  background: var(--hero-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== BACKGROUND ========== */
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+
+.hero__bg-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transform: scale(1.08);
+  transition: opacity 1.2s var(--hero-ease), transform 1.5s var(--hero-ease);
+}
+.hero__bg-img--active { opacity: 1; transform: scale(1); }
+
+.hero__bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,15,0.45) 0%, rgba(10,10,15,0.25) 35%, rgba(10,10,15,0.70) 75%, rgba(10,10,15,0.95) 100%);
+}
+
+.hero__bg-glow {
+  position: absolute; inset: 0;
+  transition: background 0.8s var(--hero-ease);
+}
+
+/* ========== WRAPPER ========== */
+.hero__wrap {
+  position: relative; z-index: 10;
+  text-align: center; padding: 0 40px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 1s var(--hero-ease), transform 1s var(--hero-ease);
+}
+.hero__wrap--in { opacity: 1; transform: translateY(0); }
+
+/* ========== PILLS ========== */
+.hero__pills {
+  display: flex; justify-content: center; gap: 8px;
+  margin-bottom: 40px; flex-wrap: wrap;
+}
+
+.hero__pill {
+  position: relative;
+  padding: 9px 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.3s var(--hero-ease);
+  overflow: hidden;
+}
+.hero__pill:hover { background: rgba(255,255,255,0.10); }
+.hero__pill--on {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.20);
+}
+
+.hero__pill-label {
+  font-size: 0.82rem; font-weight: 520;
+  color: rgba(255,255,255,0.7);
+  position: relative; z-index: 1;
+  transition: color 0.3s var(--hero-ease);
+}
+.hero__pill--on .hero__pill-label { color: #FFFFFF; font-weight: 560; }
+
+.hero__pill-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: rgba(255,255,255,0.10);
+}
+.hero__pill-bar-fill {
+  height: 100%; background: var(--pill-color);
+  transition: width 0.05s linear;
+}
+
+/* ========== HEADLINE ========== */
+.hero__headline {
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  font-weight: 680; color: var(--hero-text);
+  margin: 0 auto 28px; max-width: 800px;
+  letter-spacing: -0.05em; line-height: 1.10;
+}
+
+.hero__headline-highlight {
+  display: inline;
+  transition: color 0.6s var(--hero-ease);
+}
+
+/* ========== FEATURES ========== */
+.hero__features {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 8px; margin-bottom: 44px;
+}
+
+.hero__feature {
+  padding: 7px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 0.80rem; color: rgba(255,255,255,0.7);
+  animation: featIn 0.5s var(--hero-ease) both;
+}
+@keyframes featIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ========== ACTION ========== */
+.hero__action {
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px; flex-wrap: wrap;
+}
+
+.hero__stat-num {
+  display: block; font-size: 1.6rem; font-weight: 680;
+  letter-spacing: -0.03em; line-height: 1;
+  transition: color 0.6s var(--hero-ease);
+}
+.hero__stat-lbl {
+  display: block; font-size: 0.74rem;
+  color: rgba(255,255,255,0.40);
+  margin-top: 4px;
+}
+
+.hero__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 30px; border-radius: 100px;
+  color: #FFFFFF; text-decoration: none;
+  font-size: 0.92rem; font-weight: 570; letter-spacing: -0.01em;
+  transition: all 0.3s var(--hero-ease);
+}
+.hero__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+/* ========== WHATSAPP ========== */
+.hero__wa {
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  width: 52px; height: 52px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+  transition: transform 0.3s var(--hero-ease);
+}
+.hero__wa:hover { transform: scale(1.08); }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .hero__wrap { padding: 0 24px; }
+  .hero__pills { gap: 4px; margin-bottom: 28px; }
+  .hero__pill { padding: 7px 15px; }
+  .hero__pill-label { font-size: 0.76rem; }
+  .hero__features { gap: 6px; margin-bottom: 32px; }
+  .hero__feature { padding: 5px 12px; font-size: 0.74rem; }
+}
+
+@media (max-width: 480px) {
+  .hero { min-height: 550px; }
+  .hero__wrap { padding: 0 16px; }
+  .hero__pills {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    justify-content: flex-start; padding-bottom: 4px;
+  }
+  .hero__pills::-webkit-scrollbar { display: none; }
+  .hero__pill { flex-shrink: 0; }
+  .hero__headline { font-size: 1.9rem; }
+  .hero__action { flex-direction: column; gap: 16px; text-align: center; }
+  .hero__cta { width: 100%; justify-content: center; }
+  .hero__wa { bottom: 16px; right: 16px; width: 44px; height: 44px; }
 }

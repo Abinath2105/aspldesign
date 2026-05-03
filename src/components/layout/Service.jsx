@@ -1,110 +1,79 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import './Service.css';
 
 const Service = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
   const sectionRef = useRef(null);
 
   const categories = [
     {
       label: 'Business',
       title: 'Business Services',
-      subtitle: 'Digital transformation engineered for growth.',
+      description: 'Digital transformation engineered for growth.',
       color: '#4F46E5',
-      colorLight: '#EEF2FF',
-      gradient: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A78BFA 100%)',
-      stats: [
-        { value: '200+', label: 'Projects' },
-        { value: '4.9', label: 'Rating' },
-        { value: '25+', label: 'Experts' },
-      ],
+      stats: { value: '200+', label: 'Projects' },
       items: [
-        { title: 'Web & App Development', description: 'Scalable platforms with modern stacks.', tag: 'React · Node.js · AWS' },
-        { title: 'Digital Marketing', description: 'Data-driven campaigns that deliver ROI.', tag: 'SEO · PPC · Analytics' },
-        { title: 'UI/UX Design', description: 'Interfaces that convert visitors.', tag: 'Figma · Design Systems' },
-        { title: 'Compliance & Finance', description: 'Regulatory peace of mind.', tag: 'GST · Audits · Filing' },
-        { title: 'Talent Solutions', description: 'Vetted professionals, right fit.', tag: 'IT & Non-IT' },
-        { title: 'Brand Collateral', description: 'Premium print and production.', tag: 'Brochures · Merch' },
+        { title: 'Web & App Development', desc: 'Scalable platforms built with modern stacks and cloud architecture.', tag: 'React · Node.js · AWS' },
+        { title: 'Digital Marketing', desc: 'Performance campaigns driven by data, optimized for measurable return.', tag: 'SEO · PPC · Analytics' },
+        { title: 'UI/UX Design', desc: 'Thoughtful interfaces that convert visitors into lifelong customers.', tag: 'Figma · Design Systems' },
+        { title: 'Compliance & Finance', desc: 'Complete regulatory management so you can focus on building.', tag: 'GST · Audits · Filing' },
+        { title: 'Talent Solutions', desc: 'Vetted professionals matched to your culture and requirements.', tag: 'IT & Non-IT' },
+        { title: 'Brand Collateral', desc: 'Premium print and production that reflects your quality standards.', tag: 'Brochures · Merch' },
       ]
     },
     {
       label: 'Hospitality',
       title: 'Hospitality & Events',
-      subtitle: 'Experiences crafted with precision.',
+      description: 'Experiences crafted with precision and artistry.',
       color: '#EA580C',
-      colorLight: '#FFF7ED',
-      gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FDBA74 100%)',
-      stats: [
-        { value: '500+', label: 'Events' },
-        { value: '4.8', label: 'Rating' },
-        { value: '30+', label: 'Specialists' },
-      ],
+      stats: { value: '500+', label: 'Events' },
       items: [
-        { title: 'Premium Dining', description: 'Multi-cuisine excellence.', tag: 'Indian · Chinese · Italian' },
-        { title: 'Corporate Events', description: 'Impeccable professional planning.', tag: 'Conferences · Galas' },
-        { title: 'Weddings & Celebrations', description: 'Your vision, honored.', tag: 'Decor · Catering' },
-        { title: 'Full-Service Management', description: 'Concept to completion.', tag: 'Venue · Logistics' },
+        { title: 'Premium Dining', desc: 'Multi-cuisine excellence in an atmosphere of refined comfort.', tag: 'Indian · Chinese · Italian' },
+        { title: 'Corporate Events', desc: 'Impeccable planning for discerning professional audiences.', tag: 'Conferences · Galas' },
+        { title: 'Weddings & Celebrations', desc: 'Your vision honored with meticulous attention to every detail.', tag: 'Decor · Catering' },
+        { title: 'Full-Service Management', desc: 'Concept through completion — a seamless, stress-free experience.', tag: 'Venue · Logistics' },
       ]
     },
     {
       label: 'Technology',
       title: 'Laptop Solutions',
-      subtitle: 'Premium devices, accessible prices.',
+      description: 'Premium devices made accessible without compromise.',
       color: '#059669',
-      colorLight: '#ECFDF5',
-      gradient: 'linear-gradient(135deg, #059669 0%, #10B981 50%, #6EE7B7 100%)',
-      stats: [
-        { value: '1000+', label: 'Units' },
-        { value: '4.9', label: 'Rating' },
-        { value: '15+', label: 'Tech Team' },
-      ],
+      stats: { value: '1000+', label: 'Units' },
       items: [
-        { title: 'Certified Refurbished', description: 'Tested devices with warranty.', tag: '8–12 Month Warranty' },
-        { title: 'Enterprise Procurement', description: 'Custom configurations at scale.', tag: 'Tailored Solutions' },
-        { title: 'Support & Service', description: 'Technical assistance anytime.', tag: '24/7 Help Desk' },
-        { title: 'Education Access', description: 'Special pricing for students.', tag: 'Up to 40% Savings' },
+        { title: 'Certified Refurbished', desc: 'Rigorously tested devices backed by comprehensive warranty coverage.', tag: '8–12 Month Warranty' },
+        { title: 'Enterprise Procurement', desc: 'Custom configurations at scale with dedicated account management.', tag: 'Tailored Solutions' },
+        { title: 'Support & Service', desc: 'Technical assistance available when you need it, how you need it.', tag: '24/7 Help Desk' },
+        { title: 'Education Access', desc: 'Special pricing that empowers students and emerging startups.', tag: 'Up to 40% Savings' },
       ]
     },
     {
       label: 'Education',
       title: 'Training & Skills',
-      subtitle: 'Learning that launches careers.',
+      description: 'Learning experiences that translate directly to careers.',
       color: '#0284C7',
-      colorLight: '#F0F9FF',
-      gradient: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #7DD3FC 100%)',
-      stats: [
-        { value: '50+', label: 'Courses' },
-        { value: '4.7', label: 'Rating' },
-        { value: '20+', label: 'Mentors' },
-      ],
+      stats: { value: '50+', label: 'Courses' },
       items: [
-        { title: 'Digital Marketing', description: 'Real campaigns, real budgets.', tag: '3-Month Intensive' },
-        { title: 'Full Stack Development', description: 'Build production-ready apps.', tag: 'Java · React · Python' },
-        { title: 'UI/UX Design', description: 'Design thinking and tools.', tag: 'Portfolio Included' },
-        { title: 'Professional Skills', description: 'Communication mastery.', tag: 'Mock Interviews' },
+        { title: 'Digital Marketing', desc: 'Master real campaigns with actual budgets and live performance data.', tag: '3-Month Intensive' },
+        { title: 'Full Stack Development', desc: 'Build production-ready applications from architecture to deployment.', tag: 'Java · React · Python' },
+        { title: 'UI/UX Design', desc: 'Craft experiences through design thinking and industry-standard tools.', tag: 'Portfolio Included' },
+        { title: 'Professional Skills', desc: 'Communication, presence, and confidence for high-stakes environments.', tag: 'Mock Interviews' },
       ]
     },
     {
       label: 'Creative',
       title: 'Creator Studio',
-      subtitle: 'Where content becomes art.',
+      description: 'Where ideas crystallize and content becomes art.',
       color: '#DB2777',
-      colorLight: '#FDF2F8',
-      gradient: 'linear-gradient(135deg, #DB2777 0%, #EC4899 50%, #F9A8D4 100%)',
-      stats: [
-        { value: '100+', label: 'Productions' },
-        { value: '5.0', label: 'Rating' },
-        { value: '10+', label: 'Creatives' },
-      ],
+      stats: { value: '100+', label: 'Productions' },
       items: [
-        { title: 'Studio & Lighting', description: 'Cinema-grade environment.', tag: '4K · Pro Lighting' },
-        { title: 'Multi-Camera Production', description: 'Dynamic storytelling.', tag: '3-Camera Setup' },
-        { title: 'Post-Production', description: 'Expert editing and color.', tag: 'Premiere · DaVinci' },
-        { title: 'Creative Partnership', description: 'End-to-end support.', tag: 'Full Crew · Full Service' },
+        { title: 'Studio & Lighting', desc: 'Cinema-grade environment engineered for stunning visual output.', tag: '4K · Pro Lighting' },
+        { title: 'Multi-Camera Production', desc: 'Dynamic storytelling captured from multiple perspectives.', tag: '3-Camera Setup' },
+        { title: 'Post-Production', desc: 'Expert editing, color grading, and sound design that elevates.', tag: 'Premiere · DaVinci' },
+        { title: 'Creative Partnership', desc: 'End-to-end support for your vision from concept to delivery.', tag: 'Full Crew · Full Service' },
       ]
     },
   ];
@@ -113,127 +82,94 @@ const Service = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleCategoryChange = useCallback((index) => {
-    if (index === activeIndex || isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setActiveIndex(index);
-      setHoveredCard(null);
-      setTimeout(() => setIsTransitioning(false), 100);
-    }, 200);
-  }, [activeIndex, isTransitioning]);
-
   return (
     <section id="services" className="svc" ref={sectionRef}>
       
-      {/* Background */}
-      <div className="svc__bg">
-        <div className="svc__bg-orb svc__bg-orb--1" />
-        <div className="svc__bg-orb svc__bg-orb--2" />
-        <div className="svc__bg-grid" />
+      {/* Animated atmosphere */}
+      <div className="svc__atmos">
+        <div className="svc__atmos-orb svc__atmos-orb--1" />
+        <div className="svc__atmos-orb svc__atmos-orb--2" />
       </div>
 
-      <div className={`svc__container ${visible ? 'svc__container--visible' : ''}`}>
+      <div className={`svc__wrap ${visible ? 'svc__wrap--in' : ''}`}>
         
         {/* Header */}
-        <header className="svc__header">
-          <span className="svc__kicker">What we offer</span>
-          <h2 className="svc__title">
-            Everything you need
-            <br />
-            <span className="svc__title-accent">in one place</span>
+        <div className="svc__head">
+          <span className="svc__head-eyebrow">Our services</span>
+          <h2 className="svc__head-title">
+            Solutions for
+            <span className="svc__head-title-accent"> every ambition</span>
           </h2>
-          <p className="svc__subtitle">
-            Five integrated divisions. One partner. Infinite possibilities.
-          </p>
-        </header>
+        </div>
 
-        {/* Category Tabs */}
-        <nav className="svc__tabs">
+        {/* Category tabs — underline style */}
+        <div className="svc__nav">
           {categories.map((cat, i) => (
             <button
               key={i}
-              className={`svc__tab ${activeIndex === i ? 'svc__tab--active' : ''}`}
-              onClick={() => handleCategoryChange(i)}
-              style={{ '--tab-color': cat.color, '--tab-gradient': cat.gradient }}
+              className={`svc__nav-item ${activeIndex === i ? 'svc__nav-item--on' : ''}`}
+              onClick={() => { setActiveIndex(i); setExpandedItem(null); }}
+              style={{ '--nav-color': cat.color }}
             >
               {cat.label}
             </button>
           ))}
-        </nav>
+        </div>
 
-        {/* Content */}
-        <div className={`svc__content ${isTransitioning ? 'svc__content--fading' : ''}`} key={activeIndex}>
+        {/* Content area */}
+        <div className="svc__stage" key={activeIndex}>
           
-          {/* Stats Row */}
-          <div className="svc__stats-row">
-            <div className="svc__stats-info">
-              <h3 className="svc__stats-title" style={{ color: active.color }}>{active.title}</h3>
-              <p className="svc__stats-subtitle">{active.subtitle}</p>
-            </div>
-            <div className="svc__stats">
-              {active.stats.map((stat, i) => (
-                <div key={i} className="svc__stat">
-                  <span className="svc__stat-value" style={{ color: active.color }}>{stat.value}</span>
-                  <span className="svc__stat-label">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="svc__grid">
-            {active.items.map((item, i) => {
-              const isHovered = hoveredCard === `${activeIndex}-${i}`;
-              return (
-                <article
-                  key={i}
-                  className={`svc__card ${isHovered ? 'svc__card--hovered' : ''}`}
-                  onMouseEnter={() => setHoveredCard(`${activeIndex}-${i}`)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  style={{
-                    '--card-color': active.color,
-                    '--card-light': active.colorLight,
-                    '--card-gradient': active.gradient,
-                  }}
-                >
-                  <span className="svc__card-num">{String(i + 1).padStart(2, '0')}</span>
-                  
-                  <div className="svc__card-content">
-                    <h4 className="svc__card-title">{item.title}</h4>
-                    <p className="svc__card-desc">{item.description}</p>
-                    <span className="svc__card-tag" style={{ color: active.color, background: active.colorLight }}>
-                      {item.tag}
-                    </span>
-                  </div>
-                  
-                  <div className="svc__card-shine" />
-                </article>
-              );
-            })}
-          </div>
-
-          {/* CTA */}
-          <div className="svc__cta" style={{ background: active.gradient }}>
-            <div className="svc__cta-inner">
-              <div>
-                <p className="svc__cta-title">Start your {active.label.toLowerCase()} journey</p>
-                <p className="svc__cta-text">Schedule a consultation with our team.</p>
-              </div>
-              <a href="#contact" className="svc__cta-btn">
-                Get in touch
-                <ArrowRight size={16} strokeWidth={2} />
+          {/* Sidebar — category info */}
+          <div className="svc__sidebar">
+            <div className="svc__sidebar-sticky">
+              <span className="svc__sidebar-stat" style={{ color: active.color }}>
+                {active.stats.value}
+              </span>
+              <span className="svc__sidebar-stat-label">{active.stats.label}</span>
+              <h3 className="svc__sidebar-title">{active.title}</h3>
+              <p className="svc__sidebar-desc">{active.description}</p>
+              <a href="#contact" className="svc__sidebar-cta" style={{ background: active.color }}>
+                Get started
+                <ArrowRight size={14} strokeWidth={2} />
               </a>
             </div>
+          </div>
+
+          {/* Main — expandable service list */}
+          <div className="svc__list">
+            {active.items.map((item, i) => {
+              const isOpen = expandedItem === `${activeIndex}-${i}`;
+              return (
+                <div
+                  key={i}
+                  className={`svc__row ${isOpen ? 'svc__row--open' : ''}`}
+                  style={{ '--row-color': active.color, animationDelay: `${i * 0.06}s` }}
+                >
+                  <button
+                    className="svc__row-trigger"
+                    onClick={() => setExpandedItem(isOpen ? null : `${activeIndex}-${i}`)}
+                  >
+                    <span className="svc__row-num">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="svc__row-title">{item.title}</span>
+                    <span className="svc__row-tag" style={{ color: active.color }}>{item.tag}</span>
+                    <span className={`svc__row-icon ${isOpen ? 'svc__row-icon--open' : ''}`}>
+                      <ArrowRight size={14} strokeWidth={1.5} />
+                    </span>
+                  </button>
+                  
+                  <div className="svc__row-panel">
+                    <p className="svc__row-desc">{item.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
