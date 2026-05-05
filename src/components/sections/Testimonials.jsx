@@ -2237,7 +2237,7 @@ const Testimonials = () => {
       {/* Cinematic background system */}
       <div className="tst-bg">
         {/* Animated particle canvas */}
-        <canvas ref={canvasRef} className="tst-canvas" />
+        {/* <canvas ref={canvasRef} className="tst-canvas" /> */}
         
         {/* Gradient overlays */}
         <div className="tst-bg-gradient" />
