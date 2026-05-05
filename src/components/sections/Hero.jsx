@@ -1247,13 +1247,1080 @@
 
 
 
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+//   const [isHovering, setIsHovering] = useState(false);
+//   const [isTransitioning, setIsTransitioning] = useState(false);
+//   const progressIntervalRef = useRef(null);
+//   const startTimeRef = useRef(Date.now());
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 400);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     requestAnimationFrame(() => {
+//       setMousePos({
+//         x: (e.clientX - rect.left) / rect.width,
+//         y: (e.clientY - rect.top) / rect.height,
+//       });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   const startRotation = useCallback(() => {
+//     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     startTimeRef.current = Date.now();
+//     const duration = 6000;
+//     const fps = 60;
+
+//     progressIntervalRef.current = setInterval(() => {
+//       const elapsed = Date.now() - startTimeRef.current;
+//       const newProgress = Math.min(elapsed / duration, 1);
+//       setProgress(newProgress);
+
+//       if (newProgress >= 1) {
+//         clearInterval(progressIntervalRef.current);
+//         setIsTransitioning(true);
+//         setTimeout(() => {
+//           setActiveIndex(prev => (prev + 1) % services.length);
+//           setProgress(0);
+//           setIsTransitioning(false);
+//           startTimeRef.current = Date.now();
+//         }, 400);
+//       }
+//     }, 1000 / fps);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isHovering) {
+//       startRotation();
+//     } else {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     }
+//     return () => {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     };
+//   }, [isHovering, startRotation]);
+
+//   const handlePillClick = (index) => {
+//     if (index === activeIndex || isTransitioning) return;
+//     setIsTransitioning(true);
+//     setTimeout(() => {
+//       setActiveIndex(index);
+//       setProgress(0);
+//       setIsTransitioning(false);
+//       startTimeRef.current = Date.now();
+//     }, 400);
+//   };
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       subheadline: 'From concept to scale',
+//       color: '#6366F1',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects delivered' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       subheadline: 'Crafted to perfection',
+//       color: '#F59E0B',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       subheadline: 'Power meets elegance',
+//       color: '#10B981',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       subheadline: 'Learn. Build. Launch.',
+//       color: '#0EA5E9',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       subheadline: 'Stories that resonate',
+//       color: '#EC4899',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+
+//   return (
+//     <section 
+//       className="hero" 
+//       ref={sectionRef} 
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => setIsHovering(true)}
+//       onMouseLeave={() => {
+//         setIsHovering(false);
+//         startTimeRef.current = Date.now() - (progress * 6000);
+//       }}
+//     >
+      
+//       {/* Background — clean image crossfade */}
+//       <div className="hero-bg">
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           />
+//         ))}
+//         <div className="hero-bg-overlay" />
+//         <div 
+//           className="hero-bg-glow"
+//           style={{
+//             '--mx': `${mousePos.x * 100}%`,
+//             '--my': `${mousePos.y * 100}%`,
+//             '--glow-color': active.color,
+//           }}
+//         />
+//       </div>
+
+//       <div className={`hero-wrap ${isVisible ? 'is-visible' : ''}`}>
+        
+//         {/* Pill navigation */}
+    
+
+//         {/* Subheadline */}
+//         <div className="hero-subhead">
+//           <span className="hero-subhead-text">{active.subheadline}</span>
+//         </div>
+
+//         {/* Headline */}
+//         <h1 className="hero-headline">
+//           <span className="hero-headline-row">We turn</span>
+//           <span className="hero-headline-row">
+//             <span 
+//               className="hero-headline-accent"
+//               style={{ color: active.color }}
+//             >
+//               {active.headline}
+//             </span>
+//           </span>
+//           <span className="hero-headline-row">into growth engines</span>
+//         </h1>
+
+//         {/* Feature tags */}
+//         <div className="hero-features">
+//           {active.features.map((feat, i) => (
+//             <span key={i} className="hero-feature" style={{ animationDelay: `${i * 0.08}s` }}>
+//               {feat}
+//             </span>
+//           ))}
+//         </div>
+
+//         {/* Action row */}
+//         <div className="hero-action">
+//           <div className="hero-stat">
+//             <span className="hero-stat-value" style={{ color: active.color }}>{active.stat.value}</span>
+//             <span className="hero-stat-label">{active.stat.label}</span>
+//           </div>
+//           <a href="#contact" className="hero-cta">
+//             <span>Start a project</span>
+//             <ArrowRight size={16} strokeWidth={2} />
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp */}
+//       <a 
+//         href={whatsappLink} 
+//         target="_blank" 
+//         rel="noopener noreferrer" 
+//         className="hero-wa"
+//       >
+//         <MessageCircle size={20} strokeWidth={2} />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event1.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+//   const [isHovering, setIsHovering] = useState(false);
+//   const [isTransitioning, setIsTransitioning] = useState(false);
+//   const progressIntervalRef = useRef(null);
+//   const startTimeRef = useRef(Date.now());
+//   const brandTextRef = useRef(null);
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 500);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     requestAnimationFrame(() => {
+//       setMousePos({
+//         x: (e.clientX - rect.left) / rect.width,
+//         y: (e.clientY - rect.top) / rect.height,
+//       });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   const startRotation = useCallback(() => {
+//     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     startTimeRef.current = Date.now();
+//     const duration = 6000;
+//     const fps = 60;
+
+//     progressIntervalRef.current = setInterval(() => {
+//       const elapsed = Date.now() - startTimeRef.current;
+//       const newProgress = Math.min(elapsed / duration, 1);
+//       setProgress(newProgress);
+
+//       if (newProgress >= 1) {
+//         clearInterval(progressIntervalRef.current);
+//         setIsTransitioning(true);
+//         setTimeout(() => {
+//           setActiveIndex(prev => (prev + 1) % services.length);
+//           setProgress(0);
+//           setIsTransitioning(false);
+//           startTimeRef.current = Date.now();
+//         }, 500);
+//       }
+//     }, 1000 / fps);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isHovering) {
+//       startRotation();
+//     } else {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     }
+//     return () => {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     };
+//   }, [isHovering, startRotation]);
+
+//   const handlePillClick = (index) => {
+//     if (index === activeIndex || isTransitioning) return;
+//     setIsTransitioning(true);
+//     setTimeout(() => {
+//       setActiveIndex(index);
+//       setProgress(0);
+//       setIsTransitioning(false);
+//       startTimeRef.current = Date.now();
+//     }, 500);
+//   };
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       subheadline: 'From concept to scale',
+//       color: '#6366F1',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects delivered' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       subheadline: 'Crafted to perfection',
+//       color: '#F59E0B',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       subheadline: 'Power meets elegance',
+//       color: '#10B981',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       subheadline: 'Learn. Build. Launch.',
+//       color: '#0EA5E9',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       subheadline: 'Stories that resonate',
+//       color: '#EC4899',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+
+//   return (
+//     <section 
+//       className="hero" 
+//       ref={sectionRef} 
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => setIsHovering(true)}
+//       onMouseLeave={() => {
+//         setIsHovering(false);
+//         startTimeRef.current = Date.now() - (progress * 6000);
+//       }}
+//     >
+      
+//       {/* Background system */}
+//       <div className="hero-bg">
+//         {/* Images with crossfade */}
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           />
+//         ))}
+        
+//         {/* Gradient overlay */}
+//         <div className="hero-bg-overlay" />
+        
+//         {/* Ambient light masses */}
+//         <div className="hero-bg-ambient hero-bg-ambient--1" style={{ '--ambient-color': active.color }} />
+//         <div className="hero-bg-ambient hero-bg-ambient--2" style={{ '--ambient-color': services[(activeIndex + 1) % services.length].color }} />
+        
+//         {/* Mouse-following glow */}
+//         <div 
+//           className="hero-bg-glow"
+//           style={{
+//             '--mx': `${mousePos.x * 100}%`,
+//             '--my': `${mousePos.y * 100}%`,
+//             '--glow-color': active.color,
+//           }}
+//         />
+        
+//         {/* Subtle grain */}
+//         <div className="hero-bg-grain" />
+        
+//         {/* ASPL Brand watermark */}
+//         <div className="hero-brand-watermark" ref={brandTextRef}>
+//           <span className="hero-brand-watermark-text">ASPL</span>
+//         </div>
+//       </div>
+
+//       {/* Pill navigation */}
+//       <nav className="hero-pills">
+//         {services.map((svc, i) => (
+//           <button
+//             key={svc.id}
+//             className={`hero-pill ${i === activeIndex ? 'is-active' : ''}`}
+//             onClick={() => handlePillClick(i)}
+//             style={{ '--pill-color': svc.color }}
+//           >
+//             <span className="hero-pill-label">{svc.label}</span>
+//             {i === activeIndex && (
+//               <span className="hero-pill-progress">
+//                 <span className="hero-pill-progress-fill" style={{ width: `${progress * 100}%` }} />
+//               </span>
+//             )}
+//           </button>
+//         ))}
+//       </nav>
+
+//       <div className={`hero-wrap ${isVisible ? 'is-visible' : ''}`}>
+        
+//         {/* Subheadline */}
+//         <div className="hero-subhead">
+//           <span className="hero-subhead-text">{active.subheadline}</span>
+//         </div>
+
+//         {/* Headline */}
+//         <h1 className="hero-headline">
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">We turn</span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span 
+//               className="hero-headline-word hero-headline-word--accent"
+//               style={{ color: active.color }}
+//             >
+//               {active.headline}
+//             </span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">into growth engines</span>
+//           </span>
+//         </h1>
+
+//         {/* Feature tags */}
+//         <div className="hero-features">
+//           {active.features.map((feat, i) => (
+//             <span key={i} className="hero-feature" style={{ animationDelay: `${i * 0.08}s` }}>
+//               {feat}
+//             </span>
+//           ))}
+//         </div>
+
+//         {/* Action row */}
+//         <div className="hero-action">
+//           <div className="hero-stat">
+//             <span className="hero-stat-value" style={{ color: active.color }}>{active.stat.value}</span>
+//             <span className="hero-stat-label">{active.stat.label}</span>
+//           </div>
+//           <a href="#contact" className="hero-cta">
+//             <span>Start a project</span>
+//             <ArrowRight size={16} strokeWidth={2} />
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp */}
+//       <a 
+//         href={whatsappLink} 
+//         target="_blank" 
+//         rel="noopener noreferrer" 
+//         className="hero-wa"
+//       >
+//         <MessageCircle size={20} strokeWidth={2} />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event1.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+//   const [isHovering, setIsHovering] = useState(false);
+//   const [isTransitioning, setIsTransitioning] = useState(false);
+//   const progressIntervalRef = useRef(null);
+//   const startTimeRef = useRef(Date.now());
+//   const brandTextRef = useRef(null);
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 500);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     requestAnimationFrame(() => {
+//       setMousePos({
+//         x: (e.clientX - rect.left) / rect.width,
+//         y: (e.clientY - rect.top) / rect.height,
+//       });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   const startRotation = useCallback(() => {
+//     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     startTimeRef.current = Date.now();
+//     const duration = 6000;
+//     const fps = 60;
+
+//     progressIntervalRef.current = setInterval(() => {
+//       const elapsed = Date.now() - startTimeRef.current;
+//       const newProgress = Math.min(elapsed / duration, 1);
+//       setProgress(newProgress);
+
+//       if (newProgress >= 1) {
+//         clearInterval(progressIntervalRef.current);
+//         setIsTransitioning(true);
+//         setTimeout(() => {
+//           setActiveIndex(prev => (prev + 1) % services.length);
+//           setProgress(0);
+//           setIsTransitioning(false);
+//           startTimeRef.current = Date.now();
+//         }, 500);
+//       }
+//     }, 1000 / fps);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isHovering) {
+//       startRotation();
+//     } else {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     }
+//     return () => {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     };
+//   }, [isHovering, startRotation]);
+
+//   const handlePillClick = (index) => {
+//     if (index === activeIndex || isTransitioning) return;
+//     setIsTransitioning(true);
+//     setTimeout(() => {
+//       setActiveIndex(index);
+//       setProgress(0);
+//       setIsTransitioning(false);
+//       startTimeRef.current = Date.now();
+//     }, 500);
+//   };
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       subheadline: 'From concept to scale',
+//       color: '#6366F1',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects delivered' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       subheadline: 'Crafted to perfection',
+//       color: '#F59E0B',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       subheadline: 'Power meets elegance',
+//       color: '#10B981',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       subheadline: 'Learn. Build. Launch.',
+//       color: '#0EA5E9',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       subheadline: 'Stories that resonate',
+//       color: '#EC4899',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+
+//   return (
+//     <section 
+//       className="hero" 
+//       ref={sectionRef} 
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => setIsHovering(true)}
+//       onMouseLeave={() => {
+//         setIsHovering(false);
+//         startTimeRef.current = Date.now() - (progress * 6000);
+//       }}
+//     >
+      
+//       {/* Background system */}
+//       <div className="hero-bg">
+//         {/* Images with crossfade */}
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           />
+//         ))}
+        
+//         {/* Gradient overlay */}
+//         <div className="hero-bg-overlay" />
+        
+//         {/* Ambient light masses */}
+//         <div className="hero-bg-ambient hero-bg-ambient--1" style={{ '--ambient-color': active.color }} />
+//         <div className="hero-bg-ambient hero-bg-ambient--2" style={{ '--ambient-color': services[(activeIndex + 1) % services.length].color }} />
+        
+//         {/* Mouse-following glow */}
+//         <div 
+//           className="hero-bg-glow"
+//           style={{
+//             '--mx': `${mousePos.x * 100}%`,
+//             '--my': `${mousePos.y * 100}%`,
+//             '--glow-color': active.color,
+//           }}
+//         />
+        
+//         {/* Subtle grain */}
+//         <div className="hero-bg-grain" />
+        
+//         {/* ASPL Brand watermark */}
+//         <div className="hero-brand-watermark" ref={brandTextRef}>
+//           <span className="hero-brand-watermark-text">ASPL</span>
+//         </div>
+//       </div>
+
+//       {/* Pill navigation */}
+//       <nav className="hero-pills">
+//         {services.map((svc, i) => (
+//           <button
+//             key={svc.id}
+//             className={`hero-pill ${i === activeIndex ? 'is-active' : ''}`}
+//             onClick={() => handlePillClick(i)}
+//             style={{ '--pill-color': svc.color }}
+//           >
+//             <span className="hero-pill-label">{svc.label}</span>
+//             {i === activeIndex && (
+//               <span className="hero-pill-progress">
+//                 <span className="hero-pill-progress-fill" style={{ width: `${progress * 100}%` }} />
+//               </span>
+//             )}
+//           </button>
+//         ))}
+//       </nav>
+
+//       <div className={`hero-wrap ${isVisible ? 'is-visible' : ''}`}>
+        
+//         {/* Subheadline */}
+//         <div className="hero-subhead">
+//           <span className="hero-subhead-text">{active.subheadline}</span>
+//         </div>
+
+//         {/* Headline */}
+//         <h1 className="hero-headline">
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">We turn</span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span 
+//               className="hero-headline-word hero-headline-word--accent"
+//               style={{ color: active.color }}
+//             >
+//               {active.headline}
+//             </span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">into growth engines</span>
+//           </span>
+//         </h1>
+
+//         {/* Feature tags */}
+//         <div className="hero-features">
+//           {active.features.map((feat, i) => (
+//             <span key={i} className="hero-feature" style={{ animationDelay: `${i * 0.08}s` }}>
+//               {feat}
+//             </span>
+//           ))}
+//         </div>
+
+//         {/* Action row */}
+//         <div className="hero-action">
+//           <div className="hero-stat">
+//             <span className="hero-stat-value" style={{ color: active.color }}>{active.stat.value}</span>
+//             <span className="hero-stat-label">{active.stat.label}</span>
+//           </div>
+//           <a href="#contact" className="hero-cta">
+//             <span>Start a project</span>
+//             <ArrowRight size={16} strokeWidth={2} />
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp */}
+//       <a 
+//         href={whatsappLink} 
+//         target="_blank" 
+//         rel="noopener noreferrer" 
+//         className="hero-wa"
+//       >
+//         <MessageCircle size={20} strokeWidth={2} />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event1.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+//   const [isHovering, setIsHovering] = useState(false);
+//   const [isTransitioning, setIsTransitioning] = useState(false);
+//   const [scrollY, setScrollY] = useState(0);
+//   const progressIntervalRef = useRef(null);
+//   const startTimeRef = useRef(Date.now());
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   // Scroll parallax
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       if (!sectionRef.current) return;
+//       const rect = sectionRef.current.getBoundingClientRect();
+//       if (rect.bottom > 0 && rect.top < window.innerHeight) {
+//         setScrollY(window.scrollY);
+//       }
+//     };
+//     window.addEventListener('scroll', handleScroll, { passive: true });
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 600);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     requestAnimationFrame(() => {
+//       setMousePos({
+//         x: (e.clientX - rect.left) / rect.width,
+//         y: (e.clientY - rect.top) / rect.height,
+//       });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   const startRotation = useCallback(() => {
+//     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     startTimeRef.current = Date.now();
+//     const duration = 6000;
+//     const fps = 60;
+//     progressIntervalRef.current = setInterval(() => {
+//       const elapsed = Date.now() - startTimeRef.current;
+//       const newProgress = Math.min(elapsed / duration, 1);
+//       setProgress(newProgress);
+//       if (newProgress >= 1) {
+//         clearInterval(progressIntervalRef.current);
+//         setIsTransitioning(true);
+//         setTimeout(() => {
+//           setActiveIndex(prev => (prev + 1) % services.length);
+//           setProgress(0);
+//           setIsTransitioning(false);
+//           startTimeRef.current = Date.now();
+//         }, 600);
+//       }
+//     }, 1000 / fps);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isHovering) startRotation();
+//     else clearInterval(progressIntervalRef.current);
+//     return () => clearInterval(progressIntervalRef.current);
+//   }, [isHovering, startRotation]);
+
+//   const handlePillClick = (index) => {
+//     if (index === activeIndex || isTransitioning) return;
+//     setIsTransitioning(true);
+//     setTimeout(() => {
+//       setActiveIndex(index);
+//       setProgress(0);
+//       setIsTransitioning(false);
+//       startTimeRef.current = Date.now();
+//     }, 600);
+//   };
+
+//   const services = [
+//     { id: 'business', label: 'Business', headline: 'Digital transformation', subheadline: 'From concept to scale', color: '#6366F1', image: businessImg, features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'], stat: { value: '200+', label: 'Projects delivered' } },
+//     { id: 'hospitality', label: 'Hospitality', headline: 'Unforgettable events', subheadline: 'Crafted to perfection', color: '#F59E0B', image: hospitalityImg, features: ['Corporate', 'Weddings', 'Catering', 'Management'], stat: { value: '500+', label: 'Events executed' } },
+//     { id: 'laptops', label: 'Technology', headline: 'Premium devices', subheadline: 'Power meets elegance', color: '#10B981', image: laptopImg, features: ['Refurbished', 'Enterprise', 'Support', 'Education'], stat: { value: '1000+', label: 'Units delivered' } },
+//     { id: 'training', label: 'Training', headline: 'Career acceleration', subheadline: 'Learn. Build. Launch.', color: '#0EA5E9', image: trainingImg, features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'], stat: { value: '500+', label: 'Graduates placed' } },
+//     { id: 'creator', label: 'Creative', headline: 'Content mastery', subheadline: 'Stories that resonate', color: '#EC4899', image: creatorImg, features: ['Podcast', '4K Video', 'Editing', 'Full Crew'], stat: { value: '100+', label: 'Productions done' } },
+//   ];
+
+//   const active = services[activeIndex];
+//   const parallaxY = scrollY * 0.35;
+
+//   return (
+//     <section 
+//       className="hero" 
+//       ref={sectionRef} 
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => setIsHovering(true)}
+//       onMouseLeave={() => { setIsHovering(false); startTimeRef.current = Date.now() - (progress * 6000); }}
+//     >
+      
+//       {/* ========== CINEMATIC BACKGROUND SYSTEM ========== */}
+//       <div className="hero-bg">
+        
+//         {/* Images — parallax + crossfade + Ken Burns */}
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''} ${isTransitioning ? 'is-transitioning' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})`, transform: `translateY(${i === activeIndex ? parallaxY * 0.3 : 0}px)` }}
+//           />
+//         ))}
+
+//         {/* Deep gradient veil */}
+//         <div className="hero-bg-veil" />
+
+//         {/* Massive slow ambient orbs */}
+//         <div className="hero-ambient hero-ambient--1" style={{ '--amb-color': active.color }} />
+//         <div className="hero-ambient hero-ambient--2" style={{ '--amb-color': services[(activeIndex + 1) % services.length].color }} />
+
+//         {/* Mouse spotlight */}
+//         <div className="hero-spotlight" style={{ '--mx': `${mousePos.x * 100}%`, '--my': `${mousePos.y * 100}%`, '--spot-color': active.color }} />
+
+//         {/* ASPL cinematic watermark */}
+//         <div className="hero-watermark" style={{ transform: `translateY(${parallaxY * -0.08}px)` }}>
+//           <span className="hero-watermark-text">ASPL</span>
+//         </div>
+
+//         {/* Film grain */}
+//         <div className="hero-grain" />
+        
+//         {/* Vignette */}
+//         <div className="hero-vignette" />
+//       </div>
+
+//       {/* ========== PILL NAVIGATION ========== */}
+//       {/* <nav className="hero-pills">
+//         {services.map((svc, i) => (
+//           <button
+//             key={svc.id}
+//             className={`hero-pill ${i === activeIndex ? 'is-active' : ''}`}
+//             onClick={() => handlePillClick(i)}
+//             style={{ '--pill-color': svc.color }}
+//           >
+//             <span className="hero-pill-dot" />
+//             <span className="hero-pill-label">{svc.label}</span>
+//             {i === activeIndex && (
+//               <span className="hero-pill-bar">
+//                 <span className="hero-pill-bar-fill" style={{ width: `${progress * 100}%` }} />
+//               </span>
+//             )}
+//           </button>
+//         ))}
+//       </nav> */}
+
+//       {/* ========== MAIN CONTENT ========== */}
+//       <div className={`hero-content ${isVisible ? 'is-revealed' : ''}`}>
+        
+//         {/* Subheadline with animated line */}
+//         <div className="hero-subhead">
+//           <span className="hero-subhead-line" style={{ background: active.color }} />
+//           <span className="hero-subhead-text">{active.subheadline}</span>
+//         </div>
+
+//         {/* Headline — word-by-word clip reveal */}
+//         <h1 className="hero-headline">
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">We</span>
+//             <span className="hero-headline-word"> turn</span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word hero-headline-word--accent" style={{ color: active.color }}>
+//               {active.headline}
+//             </span>
+//           </span>
+//           <span className="hero-headline-row">
+//             <span className="hero-headline-word">into</span>
+//             <span className="hero-headline-word"> growth</span>
+//             <span className="hero-headline-word"> engines</span>
+//           </span>
+//         </h1>
+
+//         {/* Feature chips */}
+//         <div className="hero-chips">
+//           {active.features.map((feat, i) => (
+//             <span key={i} className="hero-chip" style={{ animationDelay: `${i * 0.1}s` }}>
+//               {feat}
+//             </span>
+//           ))}
+//         </div>
+
+//         {/* Action — stat + CTA */}
+//         <div className="hero-action">
+//           <div className="hero-stat">
+//             <span className="hero-stat-value" style={{ color: active.color }}>{active.stat.value}</span>
+//             <span className="hero-stat-label">{active.stat.label}</span>
+//           </div>
+//           <a href="#contact" className="hero-cta">
+//             <span className="hero-cta-text">Start a project</span>
+//             <span className="hero-cta-icon">
+//               <ArrowRight size={16} strokeWidth={2.5} />
+//             </span>
+//             <span className="hero-cta-shimmer" />
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp */}
+//       <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hero-wa">
+//         <span className="hero-wa-pulse" />
+//         <MessageCircle size={20} strokeWidth={2} />
+//       </a>
+
+//       {/* Scroll indicator */}
+//       <div className="hero-scroll" style={{ opacity: Math.max(0, 1 - scrollY * 0.004) }}>
+//         <span className="hero-scroll-text">Scroll</span>
+//         <span className="hero-scroll-line" />
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import './Hero.css';
 
-// Import images
 import businessImg from '../img/banner1.jpg';
-import hospitalityImg from '../img/event.jpg';
+import hospitalityImg from '../img/event1.jpg';
 import laptopImg from '../img/laptop.jpg';
 import trainingImg from '../img/training.jpg';
 import creatorImg from '../img/podcast.jpg';
@@ -1266,13 +2333,14 @@ const Hero = () => {
   const [progress, setProgress] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [textKey, setTextKey] = useState(0);
   const progressIntervalRef = useRef(null);
   const startTimeRef = useRef(Date.now());
 
   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 400);
+    const timer = setTimeout(() => setIsVisible(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -1292,10 +2360,11 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [handleMouseMove]);
 
+  // Auto-rotate with cinematic transition
   const startRotation = useCallback(() => {
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     startTimeRef.current = Date.now();
-    const duration = 6000;
+    const duration = 7000;
     const fps = 60;
 
     progressIntervalRef.current = setInterval(() => {
@@ -1306,12 +2375,18 @@ const Hero = () => {
       if (newProgress >= 1) {
         clearInterval(progressIntervalRef.current);
         setIsTransitioning(true);
+        
+        // Cinematic transition sequence
         setTimeout(() => {
           setActiveIndex(prev => (prev + 1) % services.length);
+          setTextKey(prev => prev + 1);
           setProgress(0);
-          setIsTransitioning(false);
-          startTimeRef.current = Date.now();
-        }, 400);
+          
+          setTimeout(() => {
+            setIsTransitioning(false);
+            startTimeRef.current = Date.now();
+          }, 200);
+        }, 500);
       }
     }, 1000 / fps);
   }, []);
@@ -1327,21 +2402,9 @@ const Hero = () => {
     };
   }, [isHovering, startRotation]);
 
-  const handlePillClick = (index) => {
-    if (index === activeIndex || isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setActiveIndex(index);
-      setProgress(0);
-      setIsTransitioning(false);
-      startTimeRef.current = Date.now();
-    }, 400);
-  };
-
   const services = [
     {
       id: 'business',
-      label: 'Business',
       headline: 'Digital transformation',
       subheadline: 'From concept to scale',
       color: '#6366F1',
@@ -1351,7 +2414,6 @@ const Hero = () => {
     },
     {
       id: 'hospitality',
-      label: 'Hospitality',
       headline: 'Unforgettable events',
       subheadline: 'Crafted to perfection',
       color: '#F59E0B',
@@ -1361,7 +2423,6 @@ const Hero = () => {
     },
     {
       id: 'laptops',
-      label: 'Technology',
       headline: 'Premium devices',
       subheadline: 'Power meets elegance',
       color: '#10B981',
@@ -1371,7 +2432,6 @@ const Hero = () => {
     },
     {
       id: 'training',
-      label: 'Training',
       headline: 'Career acceleration',
       subheadline: 'Learn. Build. Launch.',
       color: '#0EA5E9',
@@ -1381,7 +2441,6 @@ const Hero = () => {
     },
     {
       id: 'creator',
-      label: 'Creative',
       headline: 'Content mastery',
       subheadline: 'Stories that resonate',
       color: '#EC4899',
@@ -1392,6 +2451,8 @@ const Hero = () => {
   ];
 
   const active = services[activeIndex];
+  const prevService = services[(activeIndex - 1 + services.length) % services.length];
+  const nextService = services[(activeIndex + 1) % services.length];
 
   return (
     <section 
@@ -1401,74 +2462,98 @@ const Hero = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false);
-        startTimeRef.current = Date.now() - (progress * 6000);
+        startTimeRef.current = Date.now() - (progress * 7000);
       }}
     >
       
-      {/* Background — clean image crossfade */}
+      {/* ========== CINEMATIC BACKGROUND ========== */}
       <div className="hero-bg">
+        
+        {/* All images stacked with crossfade */}
         {services.map((svc, i) => (
           <div
             key={svc.id}
-            className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''}`}
+            className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''} ${isTransitioning ? 'is-transitioning' : ''}`}
             style={{ backgroundImage: `url(${svc.image})` }}
           />
         ))}
+
+        {/* Deep gradient overlay */}
         <div className="hero-bg-overlay" />
+        
+        {/* Ambient light orbs */}
+        <div className="hero-ambient hero-ambient--1" style={{ '--amb-color': active.color }} />
+        <div className="hero-ambient hero-ambient--2" style={{ '--amb-color': nextService.color }} />
+        <div className="hero-ambient hero-ambient--3" style={{ '--amb-color': prevService.color }} />
+        
+        {/* Mouse spotlight */}
         <div 
-          className="hero-bg-glow"
+          className="hero-spotlight"
           style={{
             '--mx': `${mousePos.x * 100}%`,
             '--my': `${mousePos.y * 100}%`,
-            '--glow-color': active.color,
+            '--spot-color': active.color,
           }}
         />
+        
+        {/* ASPL Brand Watermark */}
+        <div className="hero-watermark">
+          <span className="hero-watermark-text">ASPL</span>
+        </div>
+
+        {/* Film grain */}
+        <div className="hero-grain" />
+        
+        {/* Vignette */}
+        <div className="hero-vignette" />
+        
+        {/* Progress indicator line */}
+        <div className="hero-progress">
+          <div 
+            className="hero-progress-fill" 
+            style={{ 
+              width: `${progress * 100}%`,
+              background: `linear-gradient(90deg, ${active.color}, ${nextService.color})`,
+            }} 
+          />
+        </div>
       </div>
 
-      <div className={`hero-wrap ${isVisible ? 'is-visible' : ''}`}>
+      {/* ========== MAIN CONTENT ========== */}
+      <div className={`hero-content ${isVisible ? 'is-revealed' : ''}`} key={textKey}>
         
-        {/* Pill navigation */}
-        {/* <nav className="hero-pills">
-          {services.map((svc, i) => (
-            <button
-              key={svc.id}
-              className={`hero-pill ${i === activeIndex ? 'is-active' : ''}`}
-              onClick={() => handlePillClick(i)}
-              style={{ '--pill-color': svc.color }}
-            >
-              <span className="hero-pill-label">{svc.label}</span>
-              {i === activeIndex && (
-                <span className="hero-pill-bar">
-                  <span className="hero-pill-bar-fill" style={{ width: `${progress * 100}%` }} />
-                </span>
-              )}
-            </button>
-          ))}
-        </nav> */}
-
         {/* Subheadline */}
         <div className="hero-subhead">
+          <span className="hero-subhead-line" style={{ background: active.color }} />
           <span className="hero-subhead-text">{active.subheadline}</span>
         </div>
 
-        {/* Headline */}
+        {/* Headline — cinematic word reveal */}
         <h1 className="hero-headline">
-          <span className="hero-headline-row">We turn</span>
+          <span className="hero-headline-row">
+            <span className="hero-headline-word">We</span>
+            <span className="hero-headline-word"> turn</span>
+          </span>
           <span className="hero-headline-row">
             <span 
-              className="hero-headline-accent"
+              className="hero-headline-word hero-headline-word--accent"
               style={{ color: active.color }}
             >
               {active.headline}
             </span>
           </span>
-          <span className="hero-headline-row">into growth engines</span>
+          <span className="hero-headline-row">
+            <span className="hero-headline-word">into</span>
+            <span className="hero-headline-word"> growth</span>
+            <span className="hero-headline-word"> engines</span>
+          </span>
         </h1>
 
-        {/* Feature tags */}
-        <div className="hero-features">
+        {/* Feature chips */}
+        <div className="hero-chips">
           {active.features.map((feat, i) => (
-            <span key={i} className="hero-feature" style={{ animationDelay: `${i * 0.08}s` }}>
+            <span key={i} className="hero-chip" style={{ animationDelay: `${i * 0.12}s` }}>
+              <span className="hero-chip-dot" style={{ background: active.color }} />
               {feat}
             </span>
           ))}
@@ -1481,10 +2566,89 @@ const Hero = () => {
             <span className="hero-stat-label">{active.stat.label}</span>
           </div>
           <a href="#contact" className="hero-cta">
-            <span>Start a project</span>
-            <ArrowRight size={16} strokeWidth={2} />
+            <span className="hero-cta-text">Start a project</span>
+            <span className="hero-cta-icon">
+              <ArrowRight size={16} strokeWidth={2.5} />
+            </span>
+            <span className="hero-cta-shimmer" />
           </a>
         </div>
+
+        {/* Section indicator dots */}
+        <div className="hero-dots">
+          {services.map((svc, i) => (
+            <button
+              key={i}
+              className={`hero-dot ${i === activeIndex ? 'is-active' : ''}`}
+              onClick={() => {
+                if (i !== activeIndex && !isTransitioning) {
+                  setIsTransitioning(true);
+                  setTimeout(() => {
+                    setActiveIndex(i);
+                    setTextKey(prev => prev + 1);
+                    setProgress(0);
+                    setTimeout(() => {
+                      setIsTransitioning(false);
+                      startTimeRef.current = Date.now();
+                    }, 200);
+                  }, 500);
+                }
+              }}
+              style={{ '--dot-color': svc.color }}
+              aria-label={`${svc.headline} - ${svc.subheadline}`}
+            >
+              {i === activeIndex && (
+                <span 
+                  className="hero-dot-progress" 
+                  style={{ animationDuration: `${7 - (progress * 7)}s` }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ========== SIDE PREVIEWS ========== */}
+      <div 
+        className="hero-preview hero-preview--prev"
+        onClick={() => {
+          if (!isTransitioning) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+              setActiveIndex(prev => (prev - 1 + services.length) % services.length);
+              setTextKey(prev => prev + 1);
+              setProgress(0);
+              setTimeout(() => {
+                setIsTransitioning(false);
+                startTimeRef.current = Date.now();
+              }, 200);
+            }, 500);
+          }
+        }}
+      >
+        <span className="hero-preview-arrow">←</span>
+        <span className="hero-preview-label">{prevService.subheadline}</span>
+      </div>
+      
+      <div 
+        className="hero-preview hero-preview--next"
+        onClick={() => {
+          if (!isTransitioning) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+              setActiveIndex(prev => (prev + 1) % services.length);
+              setTextKey(prev => prev + 1);
+              setProgress(0);
+              setTimeout(() => {
+                setIsTransitioning(false);
+                startTimeRef.current = Date.now();
+              }, 200);
+            }, 500);
+          }
+        }}
+      >
+        <span className="hero-preview-label">{nextService.subheadline}</span>
+        <span className="hero-preview-arrow">→</span>
       </div>
 
       {/* WhatsApp */}
@@ -1494,6 +2658,7 @@ const Hero = () => {
         rel="noopener noreferrer" 
         className="hero-wa"
       >
+        <span className="hero-wa-pulse" />
         <MessageCircle size={20} strokeWidth={2} />
       </a>
     </section>
