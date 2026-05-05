@@ -240,7 +240,7 @@ const CTA = () => {
         <div className="cta-bottom">
           <div className="cta-bottom-item">
             <MapPin size={13} strokeWidth={1.8} />
-            <span>Pondicherry, India</span>
+            <span>Bangalore, India</span>
           </div>
           <div className="cta-bottom-divider" />
           <div className="cta-bottom-item">
