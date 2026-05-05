@@ -649,6 +649,604 @@
 
 
 
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   useEffect(() => {
+//     setTimeout(() => setIsVisible(true), 200);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     setMousePos({
+//       x: (e.clientX - rect.left) / rect.width,
+//       y: (e.clientY - rect.top) / rect.height,
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   // Auto-rotate with progress bar
+//   useEffect(() => {
+//     const duration = 5000;
+//     const interval = 50;
+//     let elapsed = 0;
+
+//     const timer = setInterval(() => {
+//       elapsed += interval;
+//       setProgress((elapsed % duration) / duration);
+      
+//       if (elapsed >= duration) {
+//         elapsed = 0;
+//         setActiveIndex((prev) => (prev + 1) % services.length);
+//       }
+//     }, interval);
+
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   const handlePillClick = (index) => {
+//     setActiveIndex(index);
+//     setProgress(0);
+//   };
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       color: '#4F46E5',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects delivered' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       color: '#EA580C',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       color: '#059669',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       color: '#0284C7',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       color: '#DB2777',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+
+//   return (
+//     <section className="hero" ref={sectionRef} onMouseMove={handleMouseMove}>
+      
+//       {/* Image background with crossfade */}
+//       <div className="hero__bg">
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero__bg-img ${i === activeIndex ? 'hero__bg-img--active' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           />
+//         ))}
+//         <div className="hero__bg-overlay" />
+//         <div 
+//           className="hero__bg-glow"
+//           style={{
+//             background: `radial-gradient(ellipse at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}20 0%, transparent 50%)`,
+//           }}
+//         />
+//       </div>
+
+//       <div className={`hero__wrap ${isVisible ? 'hero__wrap--in' : ''}`}>
+        
+//         {/* Content */}
+//         <div className="hero__content">
+          
+//           {/* Category pills */}
+//           {/* <div className="hero__pills">
+//             {services.map((svc, i) => (
+//               <button
+//                 key={svc.id}
+//                 className={`hero__pill ${i === activeIndex ? 'hero__pill--on' : ''}`}
+//                 onClick={() => handlePillClick(i)}
+//                 style={{ '--pill-color': svc.color }}
+//               >
+//                 <span className="hero__pill-label">{svc.label}</span>
+//                 {i === activeIndex && (
+//                   <span className="hero__pill-bar">
+//                     <span className="hero__pill-bar-fill" style={{ width: `${progress * 100}%` }} />
+//                   </span>
+//                 )}
+//               </button>
+//             ))}
+//           </div> */}
+
+//           {/* Headline */}
+//           <h1 className="hero__headline">
+//             We turn <span></span>
+//             <span className="hero__headline-highlight" style={{ color: active.color }}>
+//               {active.headline}
+//             </span> <span></span>
+//             into growth engines
+//           </h1>
+
+//           {/* Features */}
+//           <div className="hero__features">
+//             {active.features.map((feat, i) => (
+//               <span key={i} className="hero__feature" style={{ animationDelay: `${i * 0.08}s` }}>
+//                 {feat}
+//               </span>
+//             ))}
+//           </div>
+
+//           {/* Action row */}
+//           <div className="hero__action">
+//             <div className="hero__stat">
+//               <span className="hero__stat-num" style={{ color: active.color }}>{active.stat.value}</span>
+//               <span className="hero__stat-lbl">{active.stat.label}</span>
+//             </div>
+//             <a href="#contact" className="hero__cta" style={{ background: active.color }}>
+//               Start a project
+//               <ArrowRight size={16} strokeWidth={2} />
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp */}
+//       <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hero__wa">
+//         <MessageCircle size={20} color="#fff" />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useRef, useState, useCallback } from 'react';
+// import { ArrowRight, MessageCircle } from 'lucide-react';
+// import './Hero.css';
+
+// // Import images
+// import businessImg from '../img/banner1.jpg';
+// import hospitalityImg from '../img/event.jpg';
+// import laptopImg from '../img/laptop.jpg';
+// import trainingImg from '../img/training.jpg';
+// import creatorImg from '../img/podcast.jpg';
+
+// const Hero = () => {
+//   const sectionRef = useRef(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+//   const [progress, setProgress] = useState(0);
+//   const [isHovering, setIsHovering] = useState(false);
+//   const intervalRef = useRef(null);
+//   const progressIntervalRef = useRef(null);
+//   const startTimeRef = useRef(Date.now());
+
+//   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => setIsVisible(true), 300);
+//     return () => clearTimeout(timer);
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     if (!sectionRef.current) return;
+//     const rect = sectionRef.current.getBoundingClientRect();
+//     const x = (e.clientX - rect.left) / rect.width;
+//     const y = (e.clientY - rect.top) / rect.height;
+//     requestAnimationFrame(() => {
+//       setMousePos({ x, y });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, [handleMouseMove]);
+
+//   const startRotation = useCallback(() => {
+//     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//     if (intervalRef.current) clearTimeout(intervalRef.current);
+    
+//     startTimeRef.current = Date.now();
+//     const duration = 6000;
+//     const fps = 60;
+//     const frameDuration = 1000 / fps;
+
+//     progressIntervalRef.current = setInterval(() => {
+//       const elapsed = Date.now() - startTimeRef.current;
+//       const newProgress = Math.min(elapsed / duration, 1);
+//       setProgress(newProgress);
+
+//       if (newProgress >= 1) {
+//         clearInterval(progressIntervalRef.current);
+//         setActiveIndex(prev => (prev + 1) % services.length);
+//         setProgress(0);
+//         startTimeRef.current = Date.now();
+//       }
+//     }, frameDuration);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isHovering) {
+//       startRotation();
+//     } else {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//       if (intervalRef.current) clearTimeout(intervalRef.current);
+//     }
+//     return () => {
+//       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+//       if (intervalRef.current) clearTimeout(intervalRef.current);
+//     };
+//   }, [isHovering, startRotation]);
+
+//   const handlePillClick = (index) => {
+//     setActiveIndex(index);
+//     setProgress(0);
+//     startTimeRef.current = Date.now();
+//     if (!isHovering) {
+//       startRotation();
+//     }
+//   };
+
+//   const services = [
+//     {
+//       id: 'business',
+//       label: 'Business',
+//       headline: 'Digital transformation',
+//       subheadline: 'From concept to scale',
+//       color: '#5E5CE6',
+//       gradient: 'linear-gradient(135deg, #5E5CE6 0%, #8B5CF6 50%, #A78BFA 100%)',
+//       image: businessImg,
+//       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
+//       stat: { value: '200+', label: 'Projects delivered' },
+//     },
+//     {
+//       id: 'hospitality',
+//       label: 'Hospitality',
+//       headline: 'Unforgettable events',
+//       subheadline: 'Crafted to perfection',
+//       color: '#FF6B35',
+//       gradient: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFB347 100%)',
+//       image: hospitalityImg,
+//       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
+//       stat: { value: '500+', label: 'Events executed' },
+//     },
+//     {
+//       id: 'laptops',
+//       label: 'Technology',
+//       headline: 'Premium devices',
+//       subheadline: 'Power meets elegance',
+//       color: '#00C897',
+//       gradient: 'linear-gradient(135deg, #00C897 0%, #00D2FF 50%, #4FACFE 100%)',
+//       image: laptopImg,
+//       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
+//       stat: { value: '1000+', label: 'Units delivered' },
+//     },
+//     {
+//       id: 'training',
+//       label: 'Training',
+//       headline: 'Career acceleration',
+//       subheadline: 'Learn. Build. Launch.',
+//       color: '#0066FF',
+//       gradient: 'linear-gradient(135deg, #0066FF 0%, #00C6FF 50%, #0072FF 100%)',
+//       image: trainingImg,
+//       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
+//       stat: { value: '500+', label: 'Graduates placed' },
+//     },
+//     {
+//       id: 'creator',
+//       label: 'Creative',
+//       headline: 'Content mastery',
+//       subheadline: 'Stories that resonate',
+//       color: '#FF2D55',
+//       gradient: 'linear-gradient(135deg, #FF2D55 0%, #FF375F 50%, #FF6482 100%)',
+//       image: creatorImg,
+//       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
+//       stat: { value: '100+', label: 'Productions done' },
+//     },
+//   ];
+
+//   const active = services[activeIndex];
+//   const nextService = services[(activeIndex + 1) % services.length];
+//   const prevService = services[(activeIndex - 1 + services.length) % services.length];
+
+//   return (
+//     <section 
+//       className="hero" 
+//       ref={sectionRef} 
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => setIsHovering(true)}
+//       onMouseLeave={() => {
+//         setIsHovering(false);
+//         startTimeRef.current = Date.now() - (progress * 6000);
+//       }}
+//     >
+      
+//       {/* Cinematic Background System */}
+//       <div className="hero-bg-system">
+//         {/* Base images with Ken Burns effect */}
+//         {services.map((svc, i) => (
+//           <div
+//             key={svc.id}
+//             className={`hero-bg-image ${i === activeIndex ? 'is-active' : ''} ${i === (activeIndex + 1) % services.length ? 'is-next' : ''}`}
+//             style={{ backgroundImage: `url(${svc.image})` }}
+//           />
+//         ))}
+        
+//         {/* Dynamic gradient overlay */}
+//         <div className="hero-bg-gradient" />
+        
+//         {/* Mouse-following ambient light */}
+//         <div 
+//           className="hero-ambient-light"
+//           style={{
+//             background: `radial-gradient(600px circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}1A 0%, transparent 60%)`,
+//             opacity: isHovering ? 1.2 : 0.8,
+//           }}
+//         />
+        
+//         {/* Subtle grain texture */}
+//         <div className="hero-grain" />
+        
+//         {/* Edge vignette */}
+//         <div className="hero-vignette" />
+//       </div>
+
+//       {/* Floating particles */}
+//       <div className="hero-particles">
+//         {[...Array(20)].map((_, i) => (
+//           <div
+//             key={i}
+//             className="hero-particle"
+//             style={{
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               animationDelay: `${Math.random() * 8}s`,
+//               animationDuration: `${6 + Math.random() * 8}s`,
+//               opacity: Math.random() * 0.3 + 0.1,
+//               width: `${Math.random() * 3 + 1}px`,
+//               height: `${Math.random() * 3 + 1}px`,
+//               background: active.color,
+//             }}
+//           />
+//         ))}
+//       </div>
+
+//       <div className={`hero-content-wrapper ${isVisible ? 'is-visible' : ''}`}>
+        
+//         {/* Service Navigation Pills - Redesigned */}
+//         <nav 
+//           className="hero-pills-container"
+//           onMouseEnter={() => setIsHovering(true)}
+//           onMouseLeave={() => setIsHovering(false)}
+//         >
+//           {services.map((svc, i) => (
+//             <button
+//               key={svc.id}
+//               className={`hero-pill ${i === activeIndex ? 'is-active' : ''} ${i === (activeIndex + 1) % services.length ? 'is-next' : ''}`}
+//               onClick={() => handlePillClick(i)}
+//               // style={{ '--pill-color': svc.color } as React.CSSProperties} 
+//             >
+//               <span className="pill-icon">
+//                 {i === activeIndex && (
+//                   <svg width="8" height="8" viewBox="0 0 8 8">
+//                     <circle cx="4" cy="4" r="3" fill={svc.color} />
+//                   </svg>
+//                 )}
+//               </span>
+//               <span className="pill-label">{svc.label}</span>
+//               {i === activeIndex && (
+//                 <div className="pill-progress">
+//                   <div 
+//                     className="pill-progress-fill" 
+//                     style={{ 
+//                       width: `${progress * 100}%`,
+//                       background: svc.gradient,
+//                     }} 
+//                   />
+//                 </div>
+//               )}
+//             </button>
+//           ))}
+//         </nav>
+
+//         {/* Main Content Area */}
+//         <div className="hero-main-content">
+          
+//           {/* Subheadline - Apple style subtle intro */}
+//           <div className="hero-subheadline-wrapper">
+//             {/* <span className="hero-subheadline-line" style={{ background: active.gradient }} /> */}
+//             <span className="hero-subheadline-text">
+//               {active.subheadline}
+//             </span>
+//           </div>
+          
+//           {/* Main Headline - Cinematic typography */}
+//           <h1 className="hero-headline">
+//             <span className="headline-line headline-static">We turn</span>
+//             <span className="headline-line headline-dynamic-wrapper">
+//               <span 
+//                 className="headline-dynamic"
+//                 style={{ 
+//                   background: active.gradient,
+//                   WebkitBackgroundClip: 'text',
+//                   WebkitTextFillColor: 'transparent',
+//                   backgroundClip: 'text',
+//                 }}
+//               >
+//                 {active.headline}
+//               </span>
+//             </span>
+//             <span className="headline-line headline-static">into growth engines</span>
+//           </h1>
+
+//           {/* Feature Tags - Floating glass morphism */}
+//           <div className="hero-features-container">
+//             {active.features.map((feat, i) => (
+//               <span 
+//                 key={i} 
+//                 className="hero-feature-tag"
+//                 style={{ 
+//                   animationDelay: `${i * 0.1}s`,
+//                   borderColor: `${active.color}20`,
+//                   background: `${active.color}08`,
+//                 }}
+//               >
+//                 <span className="feature-dot" style={{ background: active.color }} />
+//                 {feat}
+//               </span>
+//             ))}
+//           </div>
+
+//           {/* CTA Section - Premium interaction */}
+//           <div className="hero-cta-section">
+//             <div className="hero-stat-block">
+//               <span 
+//                 className="stat-value"
+//                 style={{ 
+//                   background: active.gradient,
+//                   WebkitBackgroundClip: 'text',
+//                   WebkitTextFillColor: 'transparent',
+//                   backgroundClip: 'text',
+//                 }}
+//               >
+//                 {active.stat.value}
+//               </span>
+//               <span className="stat-label">{active.stat.label}</span>
+//             </div>
+            
+//             <a 
+//               href="#contact" 
+//               className="hero-cta-button"
+//               // style={{ 
+//               //   '--cta-color': active.color,
+//               //   '--cta-gradient': active.gradient,
+//               // } as React.CSSProperties}
+//             >
+//               <span className="cta-text">Start a project</span>
+//               <span className="cta-icon-wrapper">
+//                 <ArrowRight size={16} strokeWidth={2.5} />
+//               </span>
+//               <div className="cta-shimmer" />
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Service Preview Cards - Next/Previous */}
+//       <div className="hero-preview-cards">
+//         <div 
+//           className="preview-card prev-card"
+//           // style={{ '--preview-color': prevService.color } as React.CSSProperties}
+//           onClick={() => handlePillClick((activeIndex - 1 + services.length) % services.length)}
+//         >
+//           <span className="preview-label">{prevService.label}</span>
+//         </div>
+//         <div 
+//           className="preview-card next-card"
+//           // style={{ '--preview-color': nextService.color } as React.CSSProperties}
+//           onClick={() => handlePillClick((activeIndex + 1) % services.length)}
+//         >
+//           <span className="preview-label">{nextService.label}</span>
+//         </div>
+//       </div>
+
+//       {/* WhatsApp FAB - Premium */}
+//       <a 
+//         href={whatsappLink} 
+//         target="_blank" 
+//         rel="noopener noreferrer" 
+//         className="hero-whatsapp-fab"
+//       >
+//         <div className="fab-pulse" />
+//         <MessageCircle size={22} color="#fff" />
+//       </a>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import './Hero.css';
@@ -666,19 +1264,26 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [progress, setProgress] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const progressIntervalRef = useRef(null);
+  const startTimeRef = useRef(Date.now());
 
   const whatsappLink = `https://wa.me/919843406360?text=${encodeURIComponent("Hi ASPL Team! I'm interested in growing my business. Let's talk!")}`;
 
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 200);
+    const timer = setTimeout(() => setIsVisible(true), 400);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleMouseMove = useCallback((e) => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
+    requestAnimationFrame(() => {
+      setMousePos({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      });
     });
   }, []);
 
@@ -687,28 +1292,50 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [handleMouseMove]);
 
-  // Auto-rotate with progress bar
-  useEffect(() => {
-    const duration = 5000;
-    const interval = 50;
-    let elapsed = 0;
+  const startRotation = useCallback(() => {
+    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    startTimeRef.current = Date.now();
+    const duration = 6000;
+    const fps = 60;
 
-    const timer = setInterval(() => {
-      elapsed += interval;
-      setProgress((elapsed % duration) / duration);
-      
-      if (elapsed >= duration) {
-        elapsed = 0;
-        setActiveIndex((prev) => (prev + 1) % services.length);
+    progressIntervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTimeRef.current;
+      const newProgress = Math.min(elapsed / duration, 1);
+      setProgress(newProgress);
+
+      if (newProgress >= 1) {
+        clearInterval(progressIntervalRef.current);
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setActiveIndex(prev => (prev + 1) % services.length);
+          setProgress(0);
+          setIsTransitioning(false);
+          startTimeRef.current = Date.now();
+        }, 400);
       }
-    }, interval);
-
-    return () => clearInterval(timer);
+    }, 1000 / fps);
   }, []);
 
+  useEffect(() => {
+    if (!isHovering) {
+      startRotation();
+    } else {
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    }
+    return () => {
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    };
+  }, [isHovering, startRotation]);
+
   const handlePillClick = (index) => {
-    setActiveIndex(index);
-    setProgress(0);
+    if (index === activeIndex || isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveIndex(index);
+      setProgress(0);
+      setIsTransitioning(false);
+      startTimeRef.current = Date.now();
+    }, 400);
   };
 
   const services = [
@@ -716,7 +1343,8 @@ const Hero = () => {
       id: 'business',
       label: 'Business',
       headline: 'Digital transformation',
-      color: '#4F46E5',
+      subheadline: 'From concept to scale',
+      color: '#6366F1',
       image: businessImg,
       features: ['Web & Apps', 'Marketing', 'UI/UX', 'Cloud'],
       stat: { value: '200+', label: 'Projects delivered' },
@@ -725,7 +1353,8 @@ const Hero = () => {
       id: 'hospitality',
       label: 'Hospitality',
       headline: 'Unforgettable events',
-      color: '#EA580C',
+      subheadline: 'Crafted to perfection',
+      color: '#F59E0B',
       image: hospitalityImg,
       features: ['Corporate', 'Weddings', 'Catering', 'Management'],
       stat: { value: '500+', label: 'Events executed' },
@@ -734,7 +1363,8 @@ const Hero = () => {
       id: 'laptops',
       label: 'Technology',
       headline: 'Premium devices',
-      color: '#059669',
+      subheadline: 'Power meets elegance',
+      color: '#10B981',
       image: laptopImg,
       features: ['Refurbished', 'Enterprise', 'Support', 'Education'],
       stat: { value: '1000+', label: 'Units delivered' },
@@ -743,7 +1373,8 @@ const Hero = () => {
       id: 'training',
       label: 'Training',
       headline: 'Career acceleration',
-      color: '#0284C7',
+      subheadline: 'Learn. Build. Launch.',
+      color: '#0EA5E9',
       image: trainingImg,
       features: ['Live Projects', 'Mentorship', 'Portfolio', 'Placement'],
       stat: { value: '500+', label: 'Graduates placed' },
@@ -752,7 +1383,8 @@ const Hero = () => {
       id: 'creator',
       label: 'Creative',
       headline: 'Content mastery',
-      color: '#DB2777',
+      subheadline: 'Stories that resonate',
+      color: '#EC4899',
       image: creatorImg,
       features: ['Podcast', '4K Video', 'Editing', 'Full Crew'],
       stat: { value: '100+', label: 'Productions done' },
@@ -762,85 +1394,107 @@ const Hero = () => {
   const active = services[activeIndex];
 
   return (
-    <section className="hero" ref={sectionRef} onMouseMove={handleMouseMove}>
+    <section 
+      className="hero" 
+      ref={sectionRef} 
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        startTimeRef.current = Date.now() - (progress * 6000);
+      }}
+    >
       
-      {/* Image background with crossfade */}
-      <div className="hero__bg">
+      {/* Background — clean image crossfade */}
+      <div className="hero-bg">
         {services.map((svc, i) => (
           <div
             key={svc.id}
-            className={`hero__bg-img ${i === activeIndex ? 'hero__bg-img--active' : ''}`}
+            className={`hero-bg-img ${i === activeIndex ? 'is-active' : ''}`}
             style={{ backgroundImage: `url(${svc.image})` }}
           />
         ))}
-        <div className="hero__bg-overlay" />
+        <div className="hero-bg-overlay" />
         <div 
-          className="hero__bg-glow"
+          className="hero-bg-glow"
           style={{
-            background: `radial-gradient(ellipse at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${active.color}20 0%, transparent 50%)`,
+            '--mx': `${mousePos.x * 100}%`,
+            '--my': `${mousePos.y * 100}%`,
+            '--glow-color': active.color,
           }}
         />
       </div>
 
-      <div className={`hero__wrap ${isVisible ? 'hero__wrap--in' : ''}`}>
+      <div className={`hero-wrap ${isVisible ? 'is-visible' : ''}`}>
         
-        {/* Content */}
-        <div className="hero__content">
-          
-          {/* Category pills */}
-          {/* <div className="hero__pills">
-            {services.map((svc, i) => (
-              <button
-                key={svc.id}
-                className={`hero__pill ${i === activeIndex ? 'hero__pill--on' : ''}`}
-                onClick={() => handlePillClick(i)}
-                style={{ '--pill-color': svc.color }}
-              >
-                <span className="hero__pill-label">{svc.label}</span>
-                {i === activeIndex && (
-                  <span className="hero__pill-bar">
-                    <span className="hero__pill-bar-fill" style={{ width: `${progress * 100}%` }} />
-                  </span>
-                )}
-              </button>
-            ))}
-          </div> */}
+        {/* Pill navigation */}
+        {/* <nav className="hero-pills">
+          {services.map((svc, i) => (
+            <button
+              key={svc.id}
+              className={`hero-pill ${i === activeIndex ? 'is-active' : ''}`}
+              onClick={() => handlePillClick(i)}
+              style={{ '--pill-color': svc.color }}
+            >
+              <span className="hero-pill-label">{svc.label}</span>
+              {i === activeIndex && (
+                <span className="hero-pill-bar">
+                  <span className="hero-pill-bar-fill" style={{ width: `${progress * 100}%` }} />
+                </span>
+              )}
+            </button>
+          ))}
+        </nav> */}
 
-          {/* Headline */}
-          <h1 className="hero__headline">
-            We turn <span></span>
-            <span className="hero__headline-highlight" style={{ color: active.color }}>
+        {/* Subheadline */}
+        <div className="hero-subhead">
+          <span className="hero-subhead-text">{active.subheadline}</span>
+        </div>
+
+        {/* Headline */}
+        <h1 className="hero-headline">
+          <span className="hero-headline-row">We turn</span>
+          <span className="hero-headline-row">
+            <span 
+              className="hero-headline-accent"
+              style={{ color: active.color }}
+            >
               {active.headline}
-            </span> <span></span>
-            into growth engines
-          </h1>
+            </span>
+          </span>
+          <span className="hero-headline-row">into growth engines</span>
+        </h1>
 
-          {/* Features */}
-          <div className="hero__features">
-            {active.features.map((feat, i) => (
-              <span key={i} className="hero__feature" style={{ animationDelay: `${i * 0.08}s` }}>
-                {feat}
-              </span>
-            ))}
-          </div>
+        {/* Feature tags */}
+        <div className="hero-features">
+          {active.features.map((feat, i) => (
+            <span key={i} className="hero-feature" style={{ animationDelay: `${i * 0.08}s` }}>
+              {feat}
+            </span>
+          ))}
+        </div>
 
-          {/* Action row */}
-          <div className="hero__action">
-            <div className="hero__stat">
-              <span className="hero__stat-num" style={{ color: active.color }}>{active.stat.value}</span>
-              <span className="hero__stat-lbl">{active.stat.label}</span>
-            </div>
-            <a href="#contact" className="hero__cta" style={{ background: active.color }}>
-              Start a project
-              <ArrowRight size={16} strokeWidth={2} />
-            </a>
+        {/* Action row */}
+        <div className="hero-action">
+          <div className="hero-stat">
+            <span className="hero-stat-value" style={{ color: active.color }}>{active.stat.value}</span>
+            <span className="hero-stat-label">{active.stat.label}</span>
           </div>
+          <a href="#contact" className="hero-cta">
+            <span>Start a project</span>
+            <ArrowRight size={16} strokeWidth={2} />
+          </a>
         </div>
       </div>
 
       {/* WhatsApp */}
-      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hero__wa">
-        <MessageCircle size={20} color="#fff" />
+      <a 
+        href={whatsappLink} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hero-wa"
+      >
+        <MessageCircle size={20} strokeWidth={2} />
       </a>
     </section>
   );
