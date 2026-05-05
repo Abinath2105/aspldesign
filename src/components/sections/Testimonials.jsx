@@ -2254,10 +2254,10 @@ const Testimonials = () => {
         />
         
         {/* Floating orbs */}
-        <div className="tst-orb tst-orb--1" style={{ '--orb-color': active.color }} />
+        {/* <div className="tst-orb tst-orb--1" style={{ '--orb-color': active.color }} />
         <div className="tst-orb tst-orb--2" style={{ '--orb-color': testimonials[nextIndex].color }} />
         <div className="tst-orb tst-orb--3" style={{ '--orb-color': testimonials[prevIndex].color }} />
-        
+         */}
         {/* Subtle grid */}
         <div className="tst-bg-grid" />
         
@@ -2415,7 +2415,7 @@ const Testimonials = () => {
         </div>
 
         {/* Footer stats + CTA */}
-        <div className="tst-footer">
+        {/* <div className="tst-footer">
           <div className="tst-footer-stats">
             <div className="tst-footer-stat">
               <Users size={17} strokeWidth={1.8} />
@@ -2440,7 +2440,7 @@ const Testimonials = () => {
             <span>Start your success story</span>
             <ArrowRight size={15} strokeWidth={2} />
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );
