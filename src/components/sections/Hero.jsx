@@ -2543,8 +2543,8 @@ const Hero = () => {
             </span>
           </span>
           <span className="hero-headline-row">
-            <span className="hero-headline-word">into</span>
-            <span className="hero-headline-word"> growth</span>
+            <span className="hero-headline-word">into </span> <span></span>
+            <span className="hero-headline-word"> growth</span> <span></span>
             <span className="hero-headline-word"> engines</span>
           </span>
         </h1>
