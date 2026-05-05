@@ -2531,7 +2531,7 @@ const Hero = () => {
         {/* Headline — cinematic word reveal */}
         <h1 className="hero-headline">
           <span className="hero-headline-row">
-            <span className="hero-headline-word">We</span>
+            <span className="hero-headline-word">We</span> <span></span>
             <span className="hero-headline-word"> turn</span>
           </span>
           <span className="hero-headline-row">
